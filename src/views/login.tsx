@@ -1,28 +1,36 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useNavigate } from "react-router";
 
 
 
 function Login() {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([])
+
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        // Logic here...
+        navigate("/home") // Redirects to /dashboard
+    }
 
     // Define an async function to fetch data
     const fetchData = async () => {
-        console.log("function");
+        console.log("function")
         try {
             const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users');
-            console.log("data: ", response.data);
-            setData(response.data); // Access results via .data property
+            console.log("data: ", response.data)
+            setData(response.data) // Access results via .data property
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error)
         }
-    };
+    }
 
     useEffect(() => {
-        console.log("use effect"), data;
-        fetchData();
-    }, []); // Empty dependency array means this runs once on mount
+        console.log("use effect"), data
+        fetchData()
+    }, []) // Empty dependency array means this runs once on mount
 
     return (
         <div className="bg-background font-body text-on-surface min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
@@ -40,6 +48,7 @@ function Login() {
                 <div className="hidden md:flex items-center gap-6">
                     <a className="text-sm font-label font-semibold text-secondary hover:text-primary transition-colors" href="#">Support</a>
                     <a className="text-sm font-label font-semibold text-secondary hover:text-primary transition-colors" href="#">Documentation</a>
+                    <button onClick={handleLogin}>Login</button>
                 </div>
             </header>
             <main className="relative z-10 flex min-h-screen items-center justify-center px-6 lg:px-8">
