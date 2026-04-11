@@ -1,4 +1,4 @@
-import { HashRouter, RouterProvider } from "react-router";
+import { RouterProvider } from "react-router";
 import router from "./routes";
 import './App.css'
 
@@ -6,9 +6,7 @@ import './App.css'
 function App() {
 
   return (
-    <HashRouter>
-      <RouterProvider router={router} />
-    </HashRouter>
+    <RouterProvider router={router} />
   )
 
 }
