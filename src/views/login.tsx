@@ -28,7 +28,7 @@ function Login() {
     }
 
     useEffect(() => {
-        console.log("use effect"), data
+        console.log("use effect", data)
         fetchData()
     }, []) // Empty dependency array means this runs once on mount
 
