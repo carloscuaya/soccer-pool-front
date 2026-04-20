@@ -48,18 +48,18 @@ function Matches() {
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex flex-col items-center gap-2 flex-1">
                                 <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                    <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUw4BNHV8T8a1qTDeTalpX2hUAJMtteL_RMtZwfIardIMbcjFCNCmm3Ubah0PJerz1GlR60nejykPby9wRm0bMuJK-7K6rUTdF0nfwboqGRwmaeduDFzVzS4rz-Cb-iVnXpHY-KRZzWPsQdTFwYr_LMMS0N2vpmfP0eWzYHHn9dkbJ-OoTP77fvtMhMja5xmx7e0LLn-uisws66JLtxyjIyiXaeOZ7xOLtBO99rnTIkTpaYUIL34toog1iKtNgFV13QAl0LyyGZMw" />
+                                    <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src="/soccer-pool-front/public/logos/america-mexico-logo.png" />
                                 </div>
-                                <span className="font-headline font-bold text-sm">FC Madrid</span>
+                                <span className="font-headline font-bold text-sm">America</span>
                             </div>
                             <div className="flex flex-col items-center flex-1">
-                                <span className="font-headline font-black text-5xl tracking-tighter text-primary">3 - 1</span>
+                                <span className="font-headline font-black text-5xl tracking-tighter text-primary">2 - 1</span>
                             </div>
                             <div className="flex flex-col items-center gap-2 flex-1">
                                 <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                    <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIn0t8gUlY7DA1Ugx-G45fU-JV00I6YkvaUlN26UyHDldXNojJGcOQzH_b45awd6KF-MgrKqVwI4Mp3EIjUNzRlS9R8OcAdsAh67a-q_J_Ol6IC9jHXAasJ7fv_8MCAEjgP1uyW-cy5RuhnRjK6aiE3z3_yHKLaTtpwK3cUn7IGbNfDjzaeTsNYJs2ajVENWrQ6xS48vLtdj0mBBe860LNQIOuAE8k1d_5lJw2maHiM_14lO4L37KZ0hoZq7IUC4urjqFRBA0YFKM" />
+                                    <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src="/soccer-pool-front/public/logos/toluca-mexico-logo.png" />
                                 </div>
-                                <span className="font-headline font-bold text-sm">Munich FC</span>
+                                <span className="font-headline font-bold text-sm">Toluca</span>
                             </div>
                         </div>
                         <div className="bg-surface-container-low rounded-2xl p-4">
