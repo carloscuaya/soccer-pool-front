@@ -48,7 +48,6 @@ function Login() {
                 <div className="hidden md:flex items-center gap-6">
                     <a className="text-sm font-label font-semibold text-secondary hover:text-primary transition-colors" href="#">Support</a>
                     <a className="text-sm font-label font-semibold text-secondary hover:text-primary transition-colors" href="#">Documentation</a>
-                    <button onClick={handleLogin}>Login</button>
                 </div>
             </header>
             <main className="relative z-10 flex min-h-screen items-center justify-center px-6 lg:px-8">
@@ -86,7 +85,7 @@ function Login() {
                                 <h2 className="font-headline font-extrabold text-4xl text-on-surface tracking-tight mb-2">Match Control</h2>
                                 <p className="text-on-surface-variant font-medium">Enter your credentials to enter the arena.</p>
                             </div>
-                            <form action="#" className="space-y-6">
+                            <form onSubmit={handleLogin} className="space-y-6">
                                 <div className="space-y-2">
                                     <label className="block text-xs font-label font-bold text-secondary uppercase tracking-widest ml-1" htmlFor="email">Email Address</label>
                                     <div className="relative">

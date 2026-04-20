@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 
 export interface Tournament {
     _id: string;
@@ -17,6 +18,8 @@ export interface UserProfile {
 
 
 function Home() {
+
+    const navigate = useNavigate()
 
     const [openMenu, setOpenMenu] = useState<boolean>(false)
 
@@ -179,14 +182,13 @@ function Home() {
                                     <th className="px-5 py-4 font-extrabold min-w-[200px]">Tournament Name</th>
                                     <th className="px-4 py-4 font-extrabold">Number of Matches</th>
                                     <th className="px-4 py-4 font-extrabold">Status</th>
-                                    <th className="px-5 py-4 font-extrabold text-right"></th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {userData?.tournaments?.map((tournament) => (
                                     <tr className="active:bg-slate-50 transition-colors">
                                         <td className="px-5 py-5">
-                                            <div className="flex items-center gap-3">
+                                            <div className="cursor-pointer flex items-center gap-3" onClick={() => navigate("/matches")}>
                                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white flex-shrink-0">
                                                     <span className="material-symbols-outlined text-lg">emoji_events</span>
                                                 </div>
@@ -204,11 +206,6 @@ function Home() {
                                                 <span className="w-1 h-1 rounded-full bg-primary animate-pulse"></span>
                                                 {tournament.status}
                                             </span>
-                                        </td>
-                                        <td className="px-5 py-5 text-right">
-                                            <svg className="cursor-pointer w-6 h-6 text-green-600 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://w3.org">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path>
-                                            </svg>
                                         </td>
                                     </tr>
                                 ))}
