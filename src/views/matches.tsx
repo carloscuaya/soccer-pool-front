@@ -48,7 +48,7 @@ function Matches() {
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex flex-col items-center gap-2 flex-1">
                                 <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                    <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src="/soccer-pool-front/public/logos/america-mexico-logo.png" />
+                                    <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src={`${import.meta.env.BASE_URL}logos/america-mexico-logo.png`} />
                                 </div>
                                 <span className="font-headline font-bold text-sm">America</span>
                             </div>
@@ -57,7 +57,7 @@ function Matches() {
                             </div>
                             <div className="flex flex-col items-center gap-2 flex-1">
                                 <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                    <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src="/soccer-pool-front/public/logos/toluca-mexico-logo.png" />
+                                    <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src={`${import.meta.env.BASE_URL}logos/toluca-mexico-logo.png`} />
                                 </div>
                                 <span className="font-headline font-bold text-sm">Toluca</span>
                             </div>
