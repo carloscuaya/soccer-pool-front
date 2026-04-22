@@ -1,8 +1,41 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
+
+export interface Match {
+    _id: string
+    code: string
+    localTeam: string
+    scoreLocalTeam: number | null
+    logoPathLocalTeam: string
+    visitTeam: string
+    scoreVisitTeam: number | null
+    logoPathVisitTeam: string
+    matchDate: string
+    status: string
+}
 
 function Matches() {
 
     const navigate = useNavigate()
+
+    const [matchesData, setMatchesData] = useState<Match[]>()
+
+    // Define an async function to fetch data
+    const fetchMatchesData = async () => {
+        console.log("fetchMatchesData")
+        try {
+            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/matches')
+            console.log("matchesData: ", response.data)
+            setMatchesData(response.data) // Access results via .data property
+        } catch (error) {
+            console.error('Error fetching data:', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchMatchesData()
+    }, []) // Empty dependency array means this runs once on mount
 
 
 
@@ -29,89 +62,58 @@ function Matches() {
             </nav>
             {/* Main Content Canvas */}
             <main className="pt-20 pb-24 px-6 max-w-2xl mx-auto">
-                {/* Header Section */}
-                <header className="mb-10 mt-6">
-                    <h1 className="font-headline font-black text-4xl tracking-tighter text-on-surface mb-2">MATCH DAY PULSE</h1>
-                    <div className="flex items-center gap-3">
-                        <span className="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
-                        <p className="text-secondary font-semibold text-sm tracking-wide uppercase">3 Live Matches Underway</p>
-                    </div>
-                </header>
                 {/* Live Match Pulse Card */}
-                <section className="mb-10">
-                    <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-6 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
-                        <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
-                        <div className="flex justify-between items-center mb-6">
-                            <span className="bg-error/10 text-error px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">Live • 74'</span>
-                            <span className="text-on-surface-variant font-medium text-xs font-headline">CHAMPIONS LEAGUE</span>
-                        </div>
-                        <div className="flex items-center justify-between mb-8">
-                            <div className="flex flex-col items-center gap-2 flex-1">
-                                <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                    <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src={`${import.meta.env.BASE_URL}logos/america-mexico-logo.png`} />
+
+                {matchesData?.map((match) => (
+                    <>
+                        <section className="mb-10">
+                            <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-6 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
+                                <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
+                                <div className="flex justify-between items-center mb-6">
+                                    <span className="bg-error/10 text-error px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">Live • 74'</span>
+                                    <span className="text-on-surface-variant font-medium text-xs font-headline">LIGUILLA CLAUSURA 2026</span>
                                 </div>
-                                <span className="font-headline font-bold text-sm">America</span>
-                            </div>
-                            <div className="flex flex-col items-center flex-1">
-                                <span className="font-headline font-black text-5xl tracking-tighter text-primary">2 - 1</span>
-                            </div>
-                            <div className="flex flex-col items-center gap-2 flex-1">
-                                <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                    <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src={`${import.meta.env.BASE_URL}logos/toluca-mexico-logo.png`} />
+                                <div className="flex items-center justify-between mb-8">
+                                    <div className="flex flex-col items-center gap-2 flex-1">
+                                        <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
+                                            <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src={`${import.meta.env.BASE_URL}${match.logoPathLocalTeam}`} />
+                                        </div>
+                                        <span className="font-headline font-bold text-sm">{match.localTeam}</span>
+                                    </div>
+                                    <div className="flex flex-col items-center flex-1">
+                                        <span className="font-headline font-black text-5xl tracking-tighter text-primary">2 - 1</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2 flex-1">
+                                        <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
+                                            <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src={`${import.meta.env.BASE_URL}${match.logoPathVisitTeam}`} />
+                                        </div>
+                                        <span className="font-headline font-bold text-sm">{match.visitTeam}</span>
+                                    </div>
                                 </div>
-                                <span className="font-headline font-bold text-sm">Toluca</span>
+                                {/* Forecast Input Section */}
+                                <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
+                                    <div className="flex items-center justify-center gap-8 mb-6">
+                                        <div className="text-center">
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
+                                            <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" />
+                                        </div>
+                                        <span className="font-headline font-black text-2xl text-secondary">:</span>
+                                        <div className="text-center">
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
+                                            <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" />
+                                        </div>
+                                    </div>
+                                    <button className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95">
+                                        Submit
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div className="bg-surface-container-low rounded-2xl p-4">
-                            <div className="flex items-center justify-between text-xs text-on-surface-variant mb-2">
-                                <span>Win Probability</span>
-                                <span className="font-bold text-primary">82%</span>
-                            </div>
-                            <div className="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
-                                <div className="bg-primary h-full w-[82%] rounded-full"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                {/* Forecast Input Section */}
-                <section className="mb-10">
-                    <h3 className="font-headline font-bold text-xl mb-6 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-secondary">analytics</span>
-                        Expert Forecasts
-                    </h3>
-                    <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
-                        <div className="flex items-start justify-between mb-6">
-                            <div>
-                                <h4 className="font-headline font-bold text-on-secondary-fixed">London Derby</h4>
-                                <p className="text-on-secondary-fixed-variant text-sm">Kickoff in 2h 45m</p>
-                            </div>
-                            <span className="bg-white px-3 py-1 rounded-full text-[10px] font-bold text-secondary-fixed-dim bg-secondary uppercase tracking-widest">Pre-Match</span>
-                        </div>
-                        <div className="flex items-center justify-center gap-8 mb-6">
-                            <div className="text-center">
-                                <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Home</span>
-                                <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" />
-                            </div>
-                            <span className="font-headline font-black text-2xl text-secondary">:</span>
-                            <div className="text-center">
-                                <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Away</span>
-                                <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" />
-                            </div>
-                        </div>
-                        <button className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95">
-                            Submit Forecast
-                        </button>
-                    </div>
-                </section>
+
+                        </section>
+                    </>
+                ))}
                 {/* Dynamic Visual Anchor (Bento Style) */}
                 <section className="grid grid-cols-2 gap-4 mb-10">
-                    <div className="col-span-1 bg-surface-variant rounded-3xl p-5 flex flex-col justify-between aspect-square">
-                        <span className="material-symbols-outlined text-primary text-4xl">stadium</span>
-                        <div>
-                            <h5 className="font-headline font-bold text-sm leading-tight">Stadium Attendance</h5>
-                            <p className="text-xs text-on-surface-variant mt-1">94% Average</p>
-                        </div>
-                    </div>
                     <div className="col-span-1 bg-secondary-container rounded-3xl p-5 flex flex-col justify-between aspect-square relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
                         <span className="material-symbols-outlined text-on-secondary-container text-4xl">military_tech</span>
