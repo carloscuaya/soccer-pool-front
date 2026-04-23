@@ -239,3 +239,7 @@
     -moz-font-feature-settings: 'liga';
     -moz-osx-font-smoothing: grayscale;
 }
+
+[data-sileo-viewport] {
+    z-index: 9999 !important;
+}

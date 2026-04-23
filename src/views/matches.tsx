@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
+import { sileo } from "sileo"
 
 export interface Match {
     _id: string
@@ -20,6 +21,51 @@ function Matches() {
     const navigate = useNavigate()
 
     const [matchesData, setMatchesData] = useState<Match[]>()
+    const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
+
+    const handleChange = (code: string, newValue: string, field: 'scoreLocalTeam' | 'scoreVisitTeam') => {
+        setMatchesData(prev =>
+            prev?.map(match =>
+                match.code === code ? { ...match, [field]: newValue === '' ? null : Number(newValue) } : match
+            )
+        )
+    }
+
+    const submitForecast = async (matchId: string) => {
+        const match = matchesData?.find(m => m._id === matchId)
+        if (!match) return
+
+        if (match.scoreLocalTeam === null || match.scoreVisitTeam === null) {
+            sileo.warning({ title: "Please enter both scores before submitting." })
+            return
+        }
+
+        try {
+            // Replace with your actual endpoint URL and adjust the payload if needed
+            const response = await axios.put(`https://spb-4d1b4d1e.fastapicloud.dev/match/${match._id}`, {
+                scoreLocalTeam: match.scoreLocalTeam,
+                scoreVisitTeam: match.scoreVisitTeam
+            })
+            console.log("Forecast submitted successfully:", response.data)
+            sileo.success({ title: "Forecast submitted successfully!" })
+        } catch (error) {
+            console.error('Error submitting forecast:', error)
+            sileo.error({ title: "Error submitting forecast. Please try again." })
+        }
+    }
+
+    // Define an async function to fetch data
+    const fetchTournamentMatchesData = async () => {
+        console.log("fetchTournamentMatchesData")
+        try {
+            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/tournaments/matches/?tournament_id=69ddc556b7bada718e8d7ecf')
+            console.log("tournamentMatchesData: ", response.data)
+            setTournamentMatchesData(response.data) // Access results via .data property
+        } catch (error) {
+            console.error('Error fetching data:', error)
+        }
+    }
+
 
     // Define an async function to fetch data
     const fetchMatchesData = async () => {
@@ -34,6 +80,7 @@ function Matches() {
     }
 
     useEffect(() => {
+        fetchTournamentMatchesData()
         fetchMatchesData()
     }, []) // Empty dependency array means this runs once on mount
 
@@ -65,52 +112,53 @@ function Matches() {
                 {/* Live Match Pulse Card */}
 
                 {matchesData?.map((match) => (
-                    <>
-                        <section className="mb-10">
-                            <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-6 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
-                                <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
-                                <div className="flex justify-between items-center mb-6">
-                                    <span className="bg-error/10 text-error px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">Live • 74'</span>
-                                    <span className="text-on-surface-variant font-medium text-xs font-headline">LIGUILLA CLAUSURA 2026</span>
+                    <section className="mb-10" key={match.code}>
+                        <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-6 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
+                            <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
+                            <div className="flex justify-between items-center mb-6">
+                                <span className="bg-error/10 text-error px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">Live • 74'</span>
+                                <span className="text-on-surface-variant font-medium text-xs font-headline">LIGUILLA CLAUSURA 2026</span>
+                            </div>
+                            <div className="flex items-center justify-between mb-8">
+                                <div className="flex flex-col items-center gap-2 flex-1">
+                                    <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
+                                        <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src={`${import.meta.env.BASE_URL}${match.logoPathLocalTeam}`} />
+                                    </div>
+                                    <span className="font-headline font-bold text-sm">{match.localTeam}</span>
                                 </div>
-                                <div className="flex items-center justify-between mb-8">
-                                    <div className="flex flex-col items-center gap-2 flex-1">
-                                        <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                            <img className="w-full h-full object-contain" data-alt="minimalist football club logo with gold and black elements on a white shield" src={`${import.meta.env.BASE_URL}${match.logoPathLocalTeam}`} />
-                                        </div>
-                                        <span className="font-headline font-bold text-sm">{match.localTeam}</span>
-                                    </div>
-                                    <div className="flex flex-col items-center flex-1">
-                                        <span className="font-headline font-black text-5xl tracking-tighter text-primary">2 - 1</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-2 flex-1">
-                                        <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
-                                            <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src={`${import.meta.env.BASE_URL}${match.logoPathVisitTeam}`} />
-                                        </div>
-                                        <span className="font-headline font-bold text-sm">{match.visitTeam}</span>
-                                    </div>
+                                <div className="flex flex-col items-center flex-1">
+                                    <span className="font-headline font-black text-5xl tracking-tighter text-primary">{tournamentMatchesData?.find(tmatch => tmatch.code === match.code)?.scoreLocalTeam} - {tournamentMatchesData?.find(tmatch => tmatch.code === match.code)?.scoreVisitTeam}</span>
                                 </div>
-                                {/* Forecast Input Section */}
-                                <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
-                                    <div className="flex items-center justify-center gap-8 mb-6">
-                                        <div className="text-center">
-                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
-                                            <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" />
-                                        </div>
-                                        <span className="font-headline font-black text-2xl text-secondary">:</span>
-                                        <div className="text-center">
-                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
-                                            <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" />
-                                        </div>
+                                <div className="flex flex-col items-center gap-2 flex-1">
+                                    <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">
+                                        <img className="w-full h-full object-contain" data-alt="minimalist blue and silver football crest with a star icon" src={`${import.meta.env.BASE_URL}${match.logoPathVisitTeam}`} />
                                     </div>
-                                    <button className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95">
-                                        Submit
-                                    </button>
+                                    <span className="font-headline font-bold text-sm">{match.visitTeam}</span>
                                 </div>
                             </div>
+                            {/* Forecast Input Section */}
+                            <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
+                                <div className="flex items-center justify-center gap-8 mb-6">
+                                    <div className="text-center">
+                                        <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
+                                        <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreLocalTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreLocalTeam')} />
+                                    </div>
+                                    <span className="font-headline font-black text-2xl text-secondary">:</span>
+                                    <div className="text-center">
+                                        <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
+                                        <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreVisitTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreVisitTeam')} />
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => submitForecast(match._id)}
+                                    className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
 
-                        </section>
-                    </>
+                    </section>
                 ))}
                 {/* Dynamic Visual Anchor (Bento Style) */}
                 <section className="grid grid-cols-2 gap-4 mb-10">
