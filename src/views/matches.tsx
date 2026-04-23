@@ -42,7 +42,8 @@ function Matches() {
 
         try {
             // Replace with your actual endpoint URL and adjust the payload if needed
-            const response = await axios.put(`https://spb-4d1b4d1e.fastapicloud.dev/match/${match._id}`, {
+            const response = await axios.put(`https://spb-4d1b4d1e.fastapicloud.dev/matches`, {
+                matchId: match._id,
                 scoreLocalTeam: match.scoreLocalTeam,
                 scoreVisitTeam: match.scoreVisitTeam
             })
