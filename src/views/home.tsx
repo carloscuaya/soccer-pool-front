@@ -22,11 +22,15 @@ function Home() {
 
     const navigate = useNavigate()
 
+    const [username, setUsername] = useState(() => localStorage.getItem('username') || 'Guest');
+
     const [userData, setUserData] = useState<UserProfile>()
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
+        localStorage.removeItem('username')
         sileo.success({ title: "You have been logged out" })
+        setUsername('')
         navigate("/login")
     }
 
@@ -34,7 +38,7 @@ function Home() {
     const fetchUserData = async () => {
         console.log("fetchUserData")
         try {
-            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users')
+            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users/' + username)
             console.log("userData: ", response.data)
             setUserData(response.data) // Access results via .data property
         } catch (error) {

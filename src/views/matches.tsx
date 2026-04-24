@@ -27,6 +27,7 @@ function Matches() {
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
+        localStorage.removeItem('username')
         sileo.success({ title: "You have been logged out" })
         navigate("/login")
     }

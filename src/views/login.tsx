@@ -32,6 +32,7 @@ function Login() {
 
             // Save token to localStorage (or context/state)
             localStorage.setItem('access_token', response.data.access_token)
+            localStorage.setItem('username', username)
 
             // Redirect to dashboard or home page
             navigate("/home")
