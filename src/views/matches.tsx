@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
-import { format, formatInTimeZone, toZonedTime } from 'date-fns-tz'
+import { format, formatInTimeZone } from 'date-fns-tz'
 import { es } from "date-fns/locale/es"
 
 export interface Match {

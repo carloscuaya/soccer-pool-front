@@ -21,14 +21,7 @@ function Home() {
 
     const navigate = useNavigate()
 
-    const [openMenu, setOpenMenu] = useState<boolean>(false)
-
     const [userData, setUserData] = useState<UserProfile>()
-
-    const toogleMenu = () => {
-        console.log("togleMenu")
-        setOpenMenu(!openMenu)
-    };
 
     // Define an async function to fetch data
     const fetchUserData = async () => {
