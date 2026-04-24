@@ -1,36 +1,55 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router"
+import { sileo } from "sileo"
 
 
 
 function Login() {
 
-    const [data, setData] = useState([])
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
-    const handleLogin = () => {
-        // Logic here...
-        navigate("/home") // Redirects to /dashboard
-    }
+    const handleLogin = async (e: { preventDefault: () => void }) => {
+        e.preventDefault()
+        setLoading(true)
 
-    // Define an async function to fetch data
-    const fetchData = async () => {
-        console.log("function")
-        try {
-            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users');
-            console.log("data: ", response.data)
-            setData(response.data) // Access results via .data property
-        } catch (error) {
-            console.error('Error fetching data:', error)
+        if (!username || !password) {
+            sileo.warning({ title: "Please enter both username and password" })
+            setLoading(false)
+            return
         }
-    }
 
-    useEffect(() => {
-        console.log("use effect", data)
-        fetchData()
-    }, []) // Empty dependency array means this runs once on mount
+        try {
+            const response = await axios.post(
+                'https://spb-4d1b4d1e.fastapicloud.dev/login',
+                { username, password },
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+
+            // Save token to localStorage (or context/state)
+            localStorage.setItem('access_token', response.data.access_token)
+
+            // Redirect to dashboard or home page
+            navigate("/home")
+            sileo.success({ title: "Welcome " + username })
+
+        } catch (error: any) {
+            console.error('Login Failed:', error)
+            if (error.response && error.response.status === 401) {
+                sileo.warning({ title: "Invalid credentials" })
+            } else {
+                sileo.error({ title: "Error connecting to the server" })
+            }
+
+        } finally {
+            setLoading(false)
+        }
+
+    }
 
     return (
         <div className="bg-background font-body text-on-surface min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
@@ -87,10 +106,10 @@ function Login() {
                             </div>
                             <form onSubmit={handleLogin} className="space-y-6">
                                 <div className="space-y-2">
-                                    <label className="block text-xs font-label font-bold text-secondary uppercase tracking-widest ml-1" htmlFor="email">Email Address</label>
+                                    <label className="block text-xs font-label font-bold text-secondary uppercase tracking-widest ml-1" htmlFor="username">Username</label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="alternate_email">alternate_email</span>
-                                        <input className="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 transition-all font-body text-on-surface placeholder:text-outline" id="email" name="email" placeholder="manager@club.pro" type="email" />
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="alternate_email">badge</span>
+                                        <input className="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 transition-all font-body text-on-surface placeholder:text-outline" id="username" name="username" placeholder="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
@@ -100,13 +119,13 @@ function Login() {
                                     </div>
                                     <div className="relative">
                                         <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="vpn_key">vpn_key</span>
-                                        <input className="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 transition-all font-body text-on-surface placeholder:text-outline" id="access-key" name="access-key" placeholder="••••••••••••" type="password" />
+                                        <input className="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 transition-all font-body text-on-surface placeholder:text-outline" id="access-key" name="access-key" placeholder="••••••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="pt-4">
-                                    <button onClick={fetchData} className="group relative w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-lg shadow-[0_20px_40px_-10px_rgba(13,99,27,0.3)] hover:shadow-[0_25px_50px_-12px_rgba(13,99,27,0.4)] active:scale-[0.98] transition-all overflow-hidden" type="submit">
+                                    <button className="group relative w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-lg shadow-[0_20px_40px_-10px_rgba(13,99,27,0.3)] hover:shadow-[0_25px_50px_-12px_rgba(13,99,27,0.4)] active:scale-[0.98] transition-all overflow-hidden" type="submit">
                                         <span className="relative z-10 flex items-center justify-center gap-2">
-                                            Initialize Control
+                                            {loading ? 'Logging in...' : 'Login'}
                                             <span className="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
                                         </span>
                                         <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
