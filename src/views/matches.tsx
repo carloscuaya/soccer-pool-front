@@ -25,6 +25,12 @@ function Matches() {
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
 
+    const handleLogout = () => {
+        localStorage.removeItem('access_token')
+        sileo.success({ title: "You have been logged out" })
+        navigate("/login")
+    }
+
     const convertDate = (dateString: string) => {
         console.log("dateString: ", dateString)
         const timeZone = "America/Mexico_City"
@@ -110,6 +116,10 @@ function Matches() {
                     <button className="p-2 rounded-full hover:bg-sky-50 transition-colors">
                         <span className="material-symbols-outlined text-green-800 dark:text-green-400">notifications</span>
                     </button>
+                    <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
+                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
+                        <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
+                    </button>
                     <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-container border-2 border-secondary-container">
                         <img alt="User Profile Avatar" data-alt="close-up portrait of a professional soccer coach in a stadium setting with soft bokeh lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ3sNcoPoECE5O9k82660a1waS_mgApyUAmvn87L9r6B3az6GPTNAUgczV5fQYB6rHZwP7_v-jI8r_aCPqVWgI0Up6watu21hRf7pBarlrJoTsjCxTRGzsGXmFfMI6wCEuACZZiyvPku3tfF0Qi7lMmcOQSnA8gimw9wMpptZzZaHKsrtIaRKMohmhelUSJuPm7Ihuir6z1A7p-RmRyBKJptiXDbbTzmLr4oBkBxwsAx5RruPcp9z3dP_0K9i8m2Td51zkE4vobj0" />
                     </div>
@@ -189,7 +199,7 @@ function Matches() {
                     <span className="text-[10px] font-headline uppercase tracking-tighter">Dash</span>
                 </button>
 
-                <button className="flex flex-col items-center gap-1 text-green-700 font-bold">
+                <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
                     <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
                 </button>

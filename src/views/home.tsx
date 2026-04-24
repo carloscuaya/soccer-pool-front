@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
+import { sileo } from 'sileo';
 
 export interface Tournament {
     _id: string;
@@ -22,6 +23,12 @@ function Home() {
     const navigate = useNavigate()
 
     const [userData, setUserData] = useState<UserProfile>()
+
+    const handleLogout = () => {
+        localStorage.removeItem('access_token')
+        sileo.success({ title: "You have been logged out" })
+        navigate("/login")
+    }
 
     // Define an async function to fetch data
     const fetchUserData = async () => {
@@ -47,7 +54,12 @@ function Home() {
                 <div className="flex items-center gap-3">
                     <span className="text-lg font-black text-green-800 tracking-tighter font-headline">Jacobo Xinto Pro</span>
                 </div>
+
                 <div className="flex items-center gap-2">
+                    <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
+                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
+                        <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
+                    </button>
                     <img alt="User Profile Avatar" className="w-8 h-8 rounded-full border border-secondary-fixed object-cover ml-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDld8x1EjQDTeAYEK_IMXi1g4KBAJE2Ug-O-KIeIM3HK0TX9kVJVWAeskGk0qQHrIe3Tahgg5TUt_KPHwc56tiFfY09wmSKmApMqtIqhJlBFHChsGnkeDRFLj7Im-yXgNSDO07MTyPkmIqGA7WMmYMwZjRHi9tzZUrk7yAiaaXJya8203E5M_BmSMLno12drwjdozS-DIr6_aynKHUR_YcgFwJ3VS5_EtrbT_i2mYf6wWcnvSAilT7YOUkDI_YMI75zVMHmhDyptno" />
                 </div>
             </header>
@@ -175,7 +187,7 @@ function Home() {
             {/* BottomNavBar */}
             <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl flex justify-around items-center py-4 px-2 z-50 border-t-0 shadow-[0_-10px_30px_-15px_rgba(186,234,255,0.4)]">
 
-                <button className="flex flex-col items-center gap-1 text-green-700 font-bold">
+                <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
                     <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
                 </button>
