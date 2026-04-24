@@ -119,23 +119,6 @@ function Home() {
                 </header>
                 {/* KPI Bento Grid (Horizontal Scroll on Mobile) */}
                 <div className="flex gap-4 overflow-x-auto pb-6 -mx-4 px-4 snap-x hide-scrollbar">
-                    {/* Live Events */}
-                    <div className="min-w-[280px] bg-surface-container-lowest p-6 rounded-[2rem] shadow-lg grass-texture relative overflow-hidden snap-center border border-white">
-                        <div className="relative z-10">
-                            <div className="w-10 h-10 bg-error-container text-error rounded-xl flex items-center justify-center mb-4">
-                                <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>sensors</span>
-                            </div>
-                            <div className="space-y-0.5">
-                                <p className="text-slate-500 font-headline font-bold uppercase tracking-widest text-[9px]">Current Status</p>
-                                <h3 className="text-3xl font-headline font-black text-on-surface">1 Live Event</h3>
-                            </div>
-                            <div className="mt-4 flex items-center gap-2 text-primary text-[11px] font-bold">
-                                <span className="material-symbols-outlined text-xs">trending_up</span>
-                                <span>+3 from yesterday</span>
-                            </div>
-                        </div>
-
-                    </div>
                     {/* Players */}
                     <div className="min-w-[280px] bg-primary p-6 rounded-[2rem] shadow-lg grass-texture relative overflow-hidden snap-center border border-white">
                         <div className="relative z-10">
@@ -161,7 +144,7 @@ function Home() {
                             </div>
                             <div className="space-y-0.5">
                                 <p className="text-primary-fixed/60 font-headline font-bold uppercase tracking-widest text-[9px]">Prize Liquidity</p>
-                                <h3 className="text-3xl font-headline font-black">$450.2k</h3>
+                                <h3 className="text-3xl font-headline font-black">$1.2k</h3>
                             </div>
                             <div className="mt-4 flex items-center gap-3">
                                 <div className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
@@ -171,7 +154,25 @@ function Home() {
                             </div>
                         </div>
                     </div>
+                    {/* Live Events */}
+                    <div className="min-w-[280px] bg-surface-container-lowest p-6 rounded-[2rem] shadow-lg grass-texture relative overflow-hidden snap-center border border-white">
+                        <div className="relative z-10">
+                            <div className="w-10 h-10 bg-error-container text-error rounded-xl flex items-center justify-center mb-4">
+                                <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>sensors</span>
+                            </div>
+                            <div className="space-y-0.5">
+                                <p className="text-slate-500 font-headline font-bold uppercase tracking-widest text-[9px]">Current Status</p>
+                                <h3 className="text-3xl font-headline font-black text-on-surface">1 Live Event</h3>
+                            </div>
+                            <div className="mt-4 flex items-center gap-2 text-primary text-[11px] font-bold">
+                                <span className="material-symbols-outlined text-xs">trending_up</span>
+                                <span>+3 from yesterday</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
                 {/* Tournament Table Section */}
                 <section className="mt-4 bg-surface-container-lowest rounded-3xl overflow-hidden border border-slate-100 shadow-sm">
 
@@ -186,7 +187,7 @@ function Home() {
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {userData?.tournaments?.map((tournament) => (
-                                    <tr className="active:bg-slate-50 transition-colors">
+                                    <tr className="active:bg-slate-50 transition-colors" key={tournament._id}>
                                         <td className="px-5 py-5">
                                             <div className="cursor-pointer flex items-center gap-3" onClick={() => navigate("/matches")}>
                                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white flex-shrink-0">
@@ -220,7 +221,7 @@ function Home() {
                         <img alt="Featured Tournament" className="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQeIjs7wqga-mU6wl2IUm_Ddfo1UL8EKKYvPqCfE7B5gRK1opF13Kc58G36epsuO2iP51XTulu42LQdq4kw0yNKEB4RnE1sncSJwhbW2wcRROPJLkAp318iu05br5IjWu0wu894XOP1aK0W2mdU41KetnbitiZN6TuTal1pnnK8sTulV5R_OgeppTX049p8-g468aZW8Br8rDMLrrw83dLf0dnoZj9hNZeJnW59l7AwTjDwfsp23sQBkyl57z91FYRl5RsjNJ3fc" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-5 flex flex-col justify-end">
                             <span className="bg-primary text-on-primary px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest self-start mb-1">Editor's Choice</span>
-                            <h3 className="text-xl font-headline font-black text-white">World Series Finals</h3>
+                            <h3 className="text-xl font-headline font-black text-white">WORLD CUP USA 2026</h3>
                             <p className="text-white/80 font-body text-[10px] mb-3">Registration opens in 4 days.</p>
                             <button className="bg-white text-on-background px-4 py-1.5 rounded-full font-headline font-bold text-[10px] self-start">Join Waiting List</button>
                         </div>

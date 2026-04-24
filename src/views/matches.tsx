@@ -2,6 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
+import { format, formatInTimeZone, toZonedTime } from 'date-fns-tz'
+import { es } from "date-fns/locale/es"
 
 export interface Match {
     _id: string
@@ -22,6 +24,16 @@ function Matches() {
 
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
+
+    const convertDate = (dateString: string) => {
+        console.log("dateString: ", dateString)
+        const timeZone = "America/Mexico_City"
+        const pattern = 'yyyy-MM-dd HH:mm:ssXXX'
+        const mexicoTime = formatInTimeZone(dateString, timeZone, pattern)
+        console.log("mexicoTime: ", mexicoTime)
+        const spanishFormat = format(mexicoTime, "d 'de' MMMM, yyyy HH:mm", { locale: es })
+        return spanishFormat
+    }
 
     const handleChange = (code: string, newValue: string, field: 'scoreLocalTeam' | 'scoreVisitTeam') => {
         setMatchesData(prev =>
@@ -91,15 +103,10 @@ function Matches() {
         <div className="bg-background text-on-surface font-body selection:bg-secondary-container">
             {/* TopNavBar */}
             <nav className="fixed top-0 w-full flex justify-between items-center px-6 py-3 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl z-50 no-border bg-slate-100/50 dark:bg-slate-900/50 shadow-[0_20px_40px_-15px_rgba(186,234,255,0.4)]">
-                <div className="flex items-center gap-2">
+                <div className="cursor-pointer flex items-center gap-2" onClick={() => navigate("/home")}>
                     <span className="text-xl font-black text-green-800 dark:text-green-500 tracking-tighter font-headline">Jacobo Xinto Futbol Pro</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <div className="hidden md:flex items-center gap-6">
-                        <a className="text-green-700 dark:text-green-400 font-bold border-b-2 border-green-700 font-headline text-sm tracking-tight py-1" href="#">Matches</a>
-                        <a className="text-slate-500 dark:text-slate-400 font-medium font-headline text-sm tracking-tight hover:bg-sky-50 transition-colors duration-300 rounded-lg px-2" href="#">Dashboard</a>
-                        <a className="text-slate-500 dark:text-slate-400 font-medium font-headline text-sm tracking-tight hover:bg-sky-50 transition-colors duration-300 rounded-lg px-2" href="#">Athletes</a>
-                    </div>
                     <button className="p-2 rounded-full hover:bg-sky-50 transition-colors">
                         <span className="material-symbols-outlined text-green-800 dark:text-green-400">notifications</span>
                     </button>
@@ -118,6 +125,7 @@ function Matches() {
                             <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
                             <div className="flex justify-between items-center mb-6">
                                 <span className="bg-error/10 text-error px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">Live • 74'</span>
+                                <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">{convertDate(match.matchDate)} </span>
                                 <span className="text-on-surface-variant font-medium text-xs font-headline">LIGUILLA CLAUSURA 2026</span>
                             </div>
                             <div className="flex items-center justify-between mb-8">
@@ -137,6 +145,7 @@ function Matches() {
                                     <span className="font-headline font-bold text-sm">{match.visitTeam}</span>
                                 </div>
                             </div>
+
                             {/* Forecast Input Section */}
                             <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
                                 <div className="flex items-center justify-center gap-8 mb-6">
@@ -179,10 +188,7 @@ function Matches() {
                     <span className="material-symbols-outlined">dashboard</span>
                     <span className="text-[10px] font-headline uppercase tracking-tighter">Dash</span>
                 </button>
-                <button className="flex flex-col items-center gap-1 text-slate-500 font-medium">
-                    <span className="material-symbols-outlined">emoji_events</span>
-                    <span className="text-[10px] font-headline uppercase tracking-tighter">Leaderboard</span>
-                </button>
+
                 <button className="flex flex-col items-center gap-1 text-green-700 font-bold">
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
                     <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
