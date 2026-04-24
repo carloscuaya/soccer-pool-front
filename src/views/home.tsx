@@ -49,58 +49,9 @@ function Home() {
 
     return (
         <div className="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
-            {/* Mobile Overlay & Drawer */}
-            <div className={`fixed inset-0 bg-black/50 z-[60] ${openMenu ? 'translate-x-0' : '-translate-x-full'}`} id="drawer-overlay" onClick={toogleMenu}></div>
-            <aside className={`fixed top-0 left-0 h-full w-72 bg-white dark:bg-slate-950 z-[70] shadow-2xl flex flex-col py-6 ${openMenu ? 'translate-x-0' : '-translate-x-full'}`} id="mobile-drawer">
-                <div className="px-6 mb-8 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary">
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>sports_soccer</span>
-                        </div>
-                        <div>
-                            <h2 className="font-headline font-extrabold text-green-800 leading-none">Jacobo Xinto</h2>
-                            <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Pro Manager</p>
-                        </div>
-                    </div>
-                    <button className="p-2 text-slate-400" onClick={toogleMenu}>
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <nav className="flex-1 space-y-1">
-                    <a className="text-slate-500 hover:text-green-600 px-6 py-4 flex items-center gap-4 hover:bg-sky-50 transition-all" href="#">
-                        <span className="material-symbols-outlined">dashboard</span>
-                        <span className="font-headline font-semibold text-base">Dashboard</span>
-                    </a>
-                    <a className="bg-green-50 text-green-700 border-r-4 border-green-700 px-6 py-4 flex items-center gap-4" href="#">
-                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-                        <span className="font-headline font-semibold text-base">Tournaments</span>
-                    </a>
-                    <a className="text-slate-500 hover:text-green-600 px-6 py-4 flex items-center gap-4 hover:bg-sky-50 transition-all" href="#">
-                        <span className="material-symbols-outlined">sports_soccer</span>
-                        <span className="font-headline font-semibold text-base">Matches</span>
-                    </a>
-                    <a className="text-slate-500 hover:text-green-600 px-6 py-4 flex items-center gap-4 hover:bg-sky-50 transition-all" href="#">
-                        <span className="material-symbols-outlined">leaderboard</span>
-                        <span className="font-headline font-semibold text-base">Standings</span>
-                    </a>
-                    <a className="text-slate-500 hover:text-green-600 px-6 py-4 flex items-center gap-4 hover:bg-sky-50 transition-all" href="#">
-                        <span className="material-symbols-outlined">groups</span>
-                        <span className="font-headline font-semibold text-base">Athletes</span>
-                    </a>
-                </nav>
-                <div className="px-6 pt-4 border-t border-slate-100 mt-auto">
-                    <a className="text-slate-500 px-4 py-4 flex items-center gap-4 hover:bg-sky-50 rounded-xl transition-all" href="#">
-                        <span className="material-symbols-outlined">settings</span>
-                        <span className="font-headline font-semibold text-base">Settings</span>
-                    </a>
-                </div>
-            </aside>
             {/* TopAppBar Mobile */}
             <header className="fixed top-0 w-full flex justify-between items-center px-4 h-16 bg-white/90 backdrop-blur-xl z-50 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <button className="p-2 -ml-2 rounded-full hover:bg-slate-100 transition-colors" onClick={toogleMenu}>
-                        <span className="material-symbols-outlined text-green-800">menu</span>
-                    </button>
                     <span className="text-lg font-black text-green-800 tracking-tighter font-headline">Jacobo Xinto Pro</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -228,6 +179,14 @@ function Home() {
                     </div>
                 </section>
             </main>
+            {/* BottomNavBar */}
+            <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl flex justify-around items-center py-4 px-2 z-50 border-t-0 shadow-[0_-10px_30px_-15px_rgba(186,234,255,0.4)]">
+
+                <button className="flex flex-col items-center gap-1 text-green-700 font-bold">
+                    <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
+                    <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
+                </button>
+            </nav>
         </div>
     )
 }
