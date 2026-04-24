@@ -56,10 +56,12 @@ function Home() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
-                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
-                        <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
-                    </button>
+                    <div className="hidden md:block">
+                        <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
+                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
+                            <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
+                        </button>
+                    </div>
                     <img alt="User Profile Avatar" className="w-8 h-8 rounded-full border border-secondary-fixed object-cover ml-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDld8x1EjQDTeAYEK_IMXi1g4KBAJE2Ug-O-KIeIM3HK0TX9kVJVWAeskGk0qQHrIe3Tahgg5TUt_KPHwc56tiFfY09wmSKmApMqtIqhJlBFHChsGnkeDRFLj7Im-yXgNSDO07MTyPkmIqGA7WMmYMwZjRHi9tzZUrk7yAiaaXJya8203E5M_BmSMLno12drwjdozS-DIr6_aynKHUR_YcgFwJ3VS5_EtrbT_i2mYf6wWcnvSAilT7YOUkDI_YMI75zVMHmhDyptno" />
                 </div>
             </header>
