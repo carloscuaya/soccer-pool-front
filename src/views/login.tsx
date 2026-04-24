@@ -150,8 +150,8 @@ function Login() {
                 </div>
             </footer>
             {/* Decorative Image Elements */}
-            <div className="hidden lg:block fixed bottom-12 right-12 w-96 h-96 -z-10 opacity-20 rotate-12">
-                <img alt="Football Pitch Background" className="w-full h-full object-contain mix-blend-multiply" data-alt="wide-angle cinematic shot of a pristine professional football pitch under bright stadium lights with a soft blue sky background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBadNueIZC12F9HeMH-1QHQb8c6ZSPYabDf2iyh1Vdy9CGpjtmHeGKmlZVeBlE7RSRmPbUoHi9bS812zbLi-felnv9kDTc-jnUBD24yJ3xmilybedjdUsmyUFR9CT3w6EMagZ-HBDyunvrPm9bj2jBMNTVal7GOSgKOFFYWT-48gg00rl2mBdu_JjaRPBb9wx2lgTFOWDyxBoThY_RutfEmDAZC4EznNMPN1C5b1VxPEmmiuvQ-wrAn9V2SYVj0gJ2gDSzZ4XZGRLs" />
+            <div className="hidden lg:block fixed bottom-12 right-12 w-96 h-96 z-0 opacity-20 rotate-12">
+                <img alt="Football Pitch Background" className="w-full h-full object-contain" data-alt="wide-angle cinematic shot of a pristine professional football pitch under bright stadium lights with a soft blue sky background" src={`${import.meta.env.BASE_URL}/soccer-field.png`} />
             </div>
         </div>
 
