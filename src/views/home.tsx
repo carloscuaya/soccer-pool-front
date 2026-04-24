@@ -151,7 +151,7 @@ function Home() {
                                 {userData?.tournaments?.map((tournament) => (
                                     <tr className="active:bg-slate-50 transition-colors" key={tournament._id}>
                                         <td className="px-5 py-5">
-                                            <div className="cursor-pointer flex items-center gap-3" onClick={() => navigate("/matches")}>
+                                            <div className="cursor-pointer flex items-center gap-3" onClick={() => navigate("/matches", { state: { username: username, tournamentId: tournament._id } })}>
                                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white flex-shrink-0">
                                                     <span className="material-symbols-outlined text-lg">emoji_events</span>
                                                 </div>

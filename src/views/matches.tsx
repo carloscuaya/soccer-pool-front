@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { format, formatInTimeZone } from 'date-fns-tz'
 import { es } from "date-fns/locale/es"
@@ -22,6 +22,10 @@ function Matches() {
 
     const navigate = useNavigate()
 
+    const location = useLocation()
+    const username = location.state?.username
+    const tournamentId = location.state?.tournamentId
+
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
 
@@ -37,7 +41,7 @@ function Matches() {
         const timeZone = "America/Mexico_City"
         const pattern = 'yyyy-MM-dd HH:mm:ssXXX'
         const mexicoTime = formatInTimeZone(dateString, timeZone, pattern)
-        console.log("mexicoTime: ", mexicoTime)
+        // console.log("mexicoTime: ", mexicoTime)
         const spanishFormat = format(mexicoTime, "d 'de' MMMM, yyyy HH:mm", { locale: es })
         return spanishFormat
     }
@@ -77,8 +81,9 @@ function Matches() {
     // Define an async function to fetch data
     const fetchTournamentMatchesData = async () => {
         console.log("fetchTournamentMatchesData")
+        console.log("tournamentId: ", tournamentId)
         try {
-            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/tournaments/matches/?tournament_id=69ddc556b7bada718e8d7ecf')
+            const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/tournaments/matches/?tournament_id=${tournamentId}`)
             console.log("tournamentMatchesData: ", response.data)
             setTournamentMatchesData(response.data) // Access results via .data property
         } catch (error) {
@@ -90,8 +95,10 @@ function Matches() {
     // Define an async function to fetch data
     const fetchMatchesData = async () => {
         console.log("fetchMatchesData")
+        console.log("tournamentId: ", tournamentId)
+        console.log("username: ", username)
         try {
-            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/matches')
+            const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/matches/${username}/${tournamentId}`)
             console.log("matchesData: ", response.data)
             setMatchesData(response.data) // Access results via .data property
         } catch (error) {
