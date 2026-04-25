@@ -210,7 +210,7 @@ function Matches() {
                 ))}
                 {/* Dynamic Visual Anchor (Bento Style) */}
                 <section className="grid grid-cols-2 gap-4 mb-10">
-                    <div className="col-span-1 bg-secondary-container rounded-3xl p-5 flex flex-col justify-between aspect-square relative overflow-hidden">
+                    <div onClick={() => navigate("/leaderboard")} className="cursor-pointer col-span-1 bg-secondary-container rounded-3xl p-5 flex flex-col justify-between aspect-square relative overflow-hidden hover:scale-[1.02] active:scale-95 transition-transform">
                         <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
                         <span className="material-symbols-outlined text-on-secondary-container text-4xl">military_tech</span>
                         <div className="relative z-10">
