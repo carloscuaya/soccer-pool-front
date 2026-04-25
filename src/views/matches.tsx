@@ -174,7 +174,7 @@ function Matches() {
                                             <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
                                             <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreLocalTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreLocalTeam')} />
                                         </div>
-                                        <span className="font-headline font-black text-2xl text-secondary">:</span>
+                                        <span className="font-headline font-black text-2xl text-secondary">-</span>
                                         <div className="text-center">
                                             <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
                                             <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreVisitTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreVisitTeam')} />
@@ -186,6 +186,21 @@ function Matches() {
                                     >
                                         Submit
                                     </button>
+                                </div>
+                            )}
+                            {match.status !== 'OPEN' && (
+                                <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
+                                    <div className="flex items-center justify-center gap-8 mb-6">
+                                        <div className="text-center">
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
+                                            <span className="font-headline font-black text-4xl text-secondary">{match.scoreLocalTeam ?? ''}</span>
+                                        </div>
+                                        <span className="font-headline font-black text-3xl text-secondary">-</span>
+                                        <div className="text-center">
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
+                                            <span className="font-headline font-black text-4xl text-secondary">{match.scoreVisitTeam ?? ''}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
