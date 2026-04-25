@@ -16,6 +16,7 @@ export interface Match {
     logoPathVisitTeam: string
     matchDate: string
     status: string
+    userScore: number | null
 }
 
 function Matches() {
@@ -37,7 +38,7 @@ function Matches() {
     }
 
     const convertDate = (dateString: string) => {
-        console.log("dateString: ", dateString)
+        // console.log("dateString: ", dateString)
         const timeZone = "America/Mexico_City"
         const pattern = 'yyyy-MM-dd HH:mm:ssXXX'
         const mexicoTime = formatInTimeZone(dateString, timeZone, pattern)
@@ -141,10 +142,10 @@ function Matches() {
 
                 {matchesData?.map((match) => (
                     <section className="mb-10" key={match.code}>
-                        <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-6 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
+                        <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-2 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
                             <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
                             <div className="flex justify-between items-center mb-6">
-                                <span className="bg-error/10 text-error px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">Live • 74'</span>
+                                {match.userScore != null && <span className="bg-secondary-container text-primary px-3 py-1 rounded-full text-lg font-bold font-headline uppercase tracking-widest">{match.userScore}</span>}
                                 <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-widest">{convertDate(match.matchDate)} </span>
                                 <span className="text-on-surface-variant font-medium text-xs font-headline">LIGUILLA CLAUSURA 2026</span>
                             </div>
@@ -156,7 +157,7 @@ function Matches() {
                                     <span className="font-headline font-bold text-sm">{match.localTeam}</span>
                                 </div>
                                 <div className="flex flex-col items-center flex-1">
-                                    <span className="font-headline font-black text-5xl tracking-tighter text-primary">{tournamentMatchesData?.find(tmatch => tmatch.code === match.code)?.scoreLocalTeam} - {tournamentMatchesData?.find(tmatch => tmatch.code === match.code)?.scoreVisitTeam}</span>
+                                    <span className="font-headline font-black text-4xl tracking-tighter text-primary">{tournamentMatchesData?.find(tmatch => tmatch.code === match.code)?.scoreLocalTeam} - {tournamentMatchesData?.find(tmatch => tmatch.code === match.code)?.scoreVisitTeam}</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-2 flex-1">
                                     <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center p-2">

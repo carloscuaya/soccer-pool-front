@@ -4,17 +4,18 @@ import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
 
 export interface Tournament {
-    _id: string;
-    name: string;
-    matches_number: number;
-    status: string;
+    _id: string
+    name: string
+    matches_number: number
+    status: string
+    score: number | null
 }
 
 export interface UserProfile {
-    _id: string;
-    username: string;
-    fullname: string;
-    tournaments: Tournament[];
+    _id: string
+    username: string
+    fullname: string
+    tournaments: Tournament[]
 }
 
 
@@ -144,6 +145,7 @@ function Home() {
                                 <tr className="text-slate-400 text-[9px] uppercase tracking-widest font-headline">
                                     <th className="px-5 py-4 font-extrabold min-w-[200px]">Tournament Name</th>
                                     <th className="px-4 py-4 font-extrabold">Number of Matches</th>
+                                    <th className="px-4 py-4 font-extrabold">My Score</th>
                                     <th className="px-4 py-4 font-extrabold">Status</th>
                                 </tr>
                             </thead>
@@ -163,6 +165,9 @@ function Home() {
                                         </td>
                                         <td className="px-4 py-5">
                                             {tournament.matches_number}
+                                        </td>
+                                        <td className="px-4 py-5">
+                                            {tournament.score ?? '--'}
                                         </td>
                                         <td className="px-4 py-5 text-on-surface font-semibold text-xs">
                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-wider">
