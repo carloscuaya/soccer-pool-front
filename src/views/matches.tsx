@@ -118,7 +118,7 @@ function Matches() {
             {/* TopNavBar */}
             <nav className="fixed top-0 w-full flex justify-between items-center px-6 py-3 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl z-50 no-border bg-slate-100/50 dark:bg-slate-900/50 shadow-[0_20px_40px_-15px_rgba(186,234,255,0.4)]">
                 <div className="cursor-pointer flex items-center gap-2" onClick={() => navigate("/home")}>
-                    <span className="text-xl font-black text-green-800 dark:text-green-500 tracking-tighter font-headline">Jacobo Xinto Futbol Pro</span>
+                    <span className="text-xl font-black text-green-800 dark:text-green-500 tracking-tighter font-headline">Jacobo Xinto Futball Pro</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <button className="p-2 rounded-full hover:bg-sky-50 transition-colors">
@@ -131,7 +131,7 @@ function Matches() {
                         </button>
                     </div>
                     <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-container border-2 border-secondary-container">
-                        <img alt="User Profile Avatar" data-alt="close-up portrait of a professional soccer coach in a stadium setting with soft bokeh lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ3sNcoPoECE5O9k82660a1waS_mgApyUAmvn87L9r6B3az6GPTNAUgczV5fQYB6rHZwP7_v-jI8r_aCPqVWgI0Up6watu21hRf7pBarlrJoTsjCxTRGzsGXmFfMI6wCEuACZZiyvPku3tfF0Qi7lMmcOQSnA8gimw9wMpptZzZaHKsrtIaRKMohmhelUSJuPm7Ihuir6z1A7p-RmRyBKJptiXDbbTzmLr4oBkBxwsAx5RruPcp9z3dP_0K9i8m2Td51zkE4vobj0" />
+                        <img alt="User Profile Avatar" data-alt="close-up portrait of a professional soccer coach in a stadium setting with soft bokeh lights" src={`${import.meta.env.BASE_URL}/user-avatar.png`} />
                     </div>
                 </div>
             </nav>
@@ -165,27 +165,29 @@ function Matches() {
                                     <span className="font-headline font-bold text-sm">{match.visitTeam}</span>
                                 </div>
                             </div>
-
                             {/* Forecast Input Section */}
-                            <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
-                                <div className="flex items-center justify-center gap-8 mb-6">
-                                    <div className="text-center">
-                                        <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
-                                        <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreLocalTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreLocalTeam')} />
+                            {match.status === 'OPEN' && (
+
+                                <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
+                                    <div className="flex items-center justify-center gap-8 mb-6">
+                                        <div className="text-center">
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
+                                            <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreLocalTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreLocalTeam')} />
+                                        </div>
+                                        <span className="font-headline font-black text-2xl text-secondary">:</span>
+                                        <div className="text-center">
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
+                                            <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreVisitTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreVisitTeam')} />
+                                        </div>
                                     </div>
-                                    <span className="font-headline font-black text-2xl text-secondary">:</span>
-                                    <div className="text-center">
-                                        <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
-                                        <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-headline font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreVisitTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreVisitTeam')} />
-                                    </div>
+                                    <button
+                                        onClick={() => submitForecast(match._id)}
+                                        className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95"
+                                    >
+                                        Submit
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => submitForecast(match._id)}
-                                    className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95"
-                                >
-                                    Submit
-                                </button>
-                            </div>
+                            )}
                         </div>
 
                     </section>

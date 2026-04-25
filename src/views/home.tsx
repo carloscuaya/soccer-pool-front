@@ -56,7 +56,7 @@ function Home() {
             {/* TopAppBar Mobile */}
             <header className="fixed top-0 w-full flex justify-between items-center px-4 h-16 bg-white/90 backdrop-blur-xl z-50 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <span className="text-lg font-black text-green-800 tracking-tighter font-headline">Jacobo Xinto Pro</span>
+                    <span className="text-lg font-black text-green-800 tracking-tighter font-headline">Jacobo Xinto Futball Pro</span>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -66,7 +66,7 @@ function Home() {
                             <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
                         </button>
                     </div>
-                    <img alt="User Profile Avatar" className="w-8 h-8 rounded-full border border-secondary-fixed object-cover ml-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDld8x1EjQDTeAYEK_IMXi1g4KBAJE2Ug-O-KIeIM3HK0TX9kVJVWAeskGk0qQHrIe3Tahgg5TUt_KPHwc56tiFfY09wmSKmApMqtIqhJlBFHChsGnkeDRFLj7Im-yXgNSDO07MTyPkmIqGA7WMmYMwZjRHi9tzZUrk7yAiaaXJya8203E5M_BmSMLno12drwjdozS-DIr6_aynKHUR_YcgFwJ3VS5_EtrbT_i2mYf6wWcnvSAilT7YOUkDI_YMI75zVMHmhDyptno" />
+                    <img alt="User Profile Avatar" className="w-8 h-8 rounded-full border border-secondary-fixed object-cover ml-1" src={`${import.meta.env.BASE_URL}/user-avatar.png`} />
                 </div>
             </header>
             {/* Main Content Area */}
