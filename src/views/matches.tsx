@@ -34,7 +34,7 @@ function Matches() {
     useEffect(() => {
         const storedUsername = localStorage.getItem('username')
         const tournamentId = location.state?.tournamentId
-        if (!storedUsername || !tournamentId) {
+        if (!storedUsername) {
             sileo.error({ title: "Session expired. Please log in again." })
             navigate("/login")
         } else {
