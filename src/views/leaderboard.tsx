@@ -1,20 +1,46 @@
-import { useNavigate } from "react-router";
-import { sileo } from "sileo";
+import { useNavigate } from "react-router"
+import { sileo } from "sileo"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
-const dummyLeaderboardData = [
-    { position: 1, username: "carlitos", score: 3 },
-    { position: 2, username: "ferluck", score: 0 }
-];
+interface LeaderboardEntry {
+    userId: string
+    username: string
+    score: number
+    position?: number
+}
 
 function Leaderboard() {
     const navigate = useNavigate();
+    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
+
+    useEffect(() => {
+        const fetchLeaderboardData = async () => {
+            try {
+                const response = await axios.get("https://spb-4d1b4d1e.fastapicloud.dev/tournaments/leaderboard/69ddc556b7bada718e8d7ecf")
+                // The endpoint returns an array of objects with userId, username, and score
+                const data: LeaderboardEntry[] = response.data
+                // Sort by score descending to generate position ranks
+                const sortedData = data.sort((a, b) => b.score - a.score).map((item, index) => ({
+                    ...item,
+                    position: index + 1
+                }))
+                setLeaderboardData(sortedData)
+            } catch (error) {
+                console.error("Error fetching leaderboard data:", error)
+                sileo.error({ title: "Failed to load leaderboard data" })
+            }
+        }
+
+        fetchLeaderboardData()
+    }, [])
 
     const handleLogout = () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('username');
-        sileo.success({ title: "You have been logged out" });
-        navigate("/login");
-    };
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('username')
+        sileo.success({ title: "You have been logged out" })
+        navigate("/login")
+    }
 
     return (
         <div className="bg-background text-on-surface font-body min-h-screen selection:bg-secondary-container">
@@ -62,12 +88,12 @@ function Leaderboard() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">
-                                {dummyLeaderboardData.map((user, index) => {
-                                    const isFirst = index === 0;
-                                    const isLast = index === dummyLeaderboardData.length - 1;
+                                {leaderboardData.map((user, index) => {
+                                    const isFirst = index === 0 && leaderboardData.length > 0;
+                                    const isLast = index === leaderboardData.length - 1 && leaderboardData.length > 1;
 
                                     return (
-                                        <tr key={user.position} className="hover:bg-slate-50 transition-colors">
+                                        <tr key={user.userId || index} className="hover:bg-slate-50 transition-colors">
                                             <td className="px-5 py-5 font-bold text-on-surface text-sm flex items-center gap-2">
                                                 {isFirst && (
                                                     <div className="relative group flex items-center">
@@ -132,4 +158,4 @@ function Leaderboard() {
     );
 }
 
-export default Leaderboard;
+export default Leaderboard
