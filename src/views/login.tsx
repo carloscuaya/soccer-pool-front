@@ -35,9 +35,17 @@ function Login() {
             localStorage.setItem('access_token', response.data.access_token)
             localStorage.setItem('username', username)
 
-            // Redirect to dashboard or home page
-            navigate("/home")
-            sileo.success({ title: "Welcome " + username })
+            // Validate if password needs to be updated
+            const userResponse = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/users/${username}`)
+            
+            if (userResponse.data && userResponse.data.hasUpdatedPassword === false) {
+                navigate("/update-password")
+                sileo.warning({ title: "Please update your password" })
+            } else {
+                // Redirect to dashboard or home page
+                navigate("/home")
+                sileo.success({ title: "Welcome " + username })
+            }
 
         } catch (error: any) {
             console.error('Login Failed:', error)
