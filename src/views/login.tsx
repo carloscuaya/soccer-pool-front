@@ -9,6 +9,7 @@ function Login() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
@@ -120,7 +121,14 @@ function Login() {
                                     </div>
                                     <div className="relative">
                                         <span className="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="vpn_key">vpn_key</span>
-                                        <input className="w-full pl-12 pr-4 py-4 rounded-2xl bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 transition-all text-on-surface placeholder:text-outline" id="access-key" name="access-key" placeholder="••••••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                        <input className="w-full pl-12 pr-12 py-4 rounded-2xl bg-surface-container-low border-0 border-b-2 border-transparent focus:border-primary focus:ring-0 transition-all text-on-surface placeholder:text-outline" id="access-key" name="access-key" placeholder="••••••••••••" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} />
+                                        <button 
+                                            type="button" 
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors flex items-center justify-center"
+                                        >
+                                            <span className="material-symbols-outlined">{showPassword ? 'visibility_off' : 'visibility'}</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="pt-4">
