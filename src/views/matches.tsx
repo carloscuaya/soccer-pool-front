@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { format, formatInTimeZone } from 'date-fns-tz'
 import { es } from "date-fns/locale/es"
@@ -22,7 +22,6 @@ export interface Match {
 function Matches() {
 
     const navigate = useNavigate()
-    const location = useLocation()
 
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
@@ -33,7 +32,7 @@ function Matches() {
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username')
-        const tournamentId = location.state?.tournamentId
+        const tournamentId = localStorage.getItem('selectedTournament')
         if (!storedUsername) {
             sileo.error({ title: "Session expired. Please log in again." })
             navigate("/login")
@@ -41,11 +40,12 @@ function Matches() {
             setUsername(storedUsername)
             setSelectedTournament(tournamentId)
         }
-    }, [location, navigate])
+    }, [navigate])
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
         localStorage.removeItem('username')
+        localStorage.removeItem('selectedTournament')
         sileo.success({ title: "You have been logged out" })
         navigate("/login")
     }
