@@ -22,13 +22,26 @@ export interface Match {
 function Matches() {
 
     const navigate = useNavigate()
-
     const location = useLocation()
-    const username = location.state?.username
-    const tournamentId = location.state?.tournamentId
 
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
+    const [username, setUsername] = useState<string | null>(null)
+    const [selectedTournament, setSelectedTournament] = useState<string | null>(null)
+
+
+
+    useEffect(() => {
+        const storedUsername = localStorage.getItem('username')
+        const tournamentId = location.state?.tournamentId
+        if (!storedUsername || !tournamentId) {
+            sileo.error({ title: "Session expired. Please log in again." })
+            navigate("/login")
+        } else {
+            setUsername(storedUsername)
+            setSelectedTournament(tournamentId)
+        }
+    }, [location, navigate])
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
@@ -82,9 +95,9 @@ function Matches() {
     // Define an async function to fetch data
     const fetchTournamentMatchesData = async () => {
         console.log("fetchTournamentMatchesData")
-        console.log("tournamentId: ", tournamentId)
+        console.log("tournamentId: ", selectedTournament)
         try {
-            const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/tournaments/matches/?tournament_id=${tournamentId}`)
+            const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/tournaments/matches/?tournament_id=${selectedTournament}`)
             console.log("tournamentMatchesData: ", response.data)
             setTournamentMatchesData(response.data) // Access results via .data property
         } catch (error) {
@@ -96,10 +109,10 @@ function Matches() {
     // Define an async function to fetch data
     const fetchMatchesData = async () => {
         console.log("fetchMatchesData")
-        console.log("tournamentId: ", tournamentId)
+        console.log("tournamentId: ", selectedTournament)
         console.log("username: ", username)
         try {
-            const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/matches/${username}/${tournamentId}`)
+            const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/matches/${username}/${selectedTournament}`)
             console.log("matchesData: ", response.data)
             setMatchesData(response.data) // Access results via .data property
         } catch (error) {
@@ -108,9 +121,11 @@ function Matches() {
     }
 
     useEffect(() => {
-        fetchTournamentMatchesData()
-        fetchMatchesData()
-    }, []) // Empty dependency array means this runs once on mount
+        if (username && selectedTournament) {
+            fetchTournamentMatchesData()
+            fetchMatchesData()
+        }
+    }, [selectedTournament])
 
 
 
