@@ -53,18 +53,18 @@ function Home() {
 
 
     return (
-        <div className="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+        <div className="bg-background text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
             {/* TopAppBar Mobile */}
             <header className="fixed top-0 w-full flex justify-between items-center px-4 h-16 bg-white/90 backdrop-blur-xl z-50 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <span className="text-lg font-black text-green-800 tracking-tighter font-headline">Jacobo Xinto Futball Pro</span>
+                    <span className="text-lg font-black text-green-800 tracking-tighter">Jacobo Xinto Futball Pro</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                     <div className="hidden md:block">
                         <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
                             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
-                            <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
+                            <span className="text-[10px] uppercase tracking-tighter">Logout</span>
                         </button>
                     </div>
                     <img alt="User Profile Avatar" className="w-8 h-8 rounded-full border border-secondary-fixed object-cover ml-1" src={`${import.meta.env.BASE_URL}/user-avatar.png`} />
@@ -75,8 +75,8 @@ function Home() {
                 {/* Header Section */}
                 <header className="mb-8">
                     <div className="space-y-3">
-                        <h1 className="text-primary text-4xl font-headline font-black text-on-surface tracking-tighter leading-none">TOURNAMENTS</h1>
-                        <p className="text-slate-500 font-body text-sm leading-relaxed">Manage global brackets and real-time match data in the world's premier football manager platform.</p>
+                        <h1 className="text-primary text-4xl font-black text-on-surface tracking-tighter leading-none">TOURNAMENTS</h1>
+                        <p className="text-slate-500 text-sm leading-relaxed">Manage global brackets and real-time match data in the world's premier football manager platform.</p>
                     </div>
 
                 </header>
@@ -89,8 +89,8 @@ function Home() {
                                 <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>groups</span>
                             </div>
                             <div className="space-y-0.5">
-                                <p className="text-slate-500 font-headline font-bold uppercase tracking-widest text-[9px]">Active Rosters</p>
-                                <h3 className="text-3xl font-headline font-black text-on-surface">12 Players</h3>
+                                <p className="text-slate-500 font-bold uppercase tracking-widest text-[9px]">Active Rosters</p>
+                                <h3 className="text-3xl font-black text-on-surface">12 Players</h3>
                             </div>
                             <div className="mt-4 flex -space-x-3">
                                 <img className="w-7 h-7 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAVi-bhHMWxcbW0u0lv-d9HfAapNgUBdotG35fqXCaJCNTwyI2Vbm8uvApY8bjofnQvvMbQr85d5-2gvv4L_ydGW6gzU_gwuVnsE3O6IFop5pIZKeKaf2gRn4uAsDGDjaeoIMOuc1Pspt-1OoMx_lH3PTZzbApLwj0iZ4EZXnlKSBDkVq5FHDXvD7Bvh3uvPnbdFrCY4zbTOYHYQtOpYDVI7Lwk9oR33CcItvKi9UAuD2h87QUObcgMn_iCQG2URLGNKe0zY4B9MM" />
@@ -106,8 +106,8 @@ function Home() {
                                 <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>payments</span>
                             </div>
                             <div className="space-y-0.5">
-                                <p className="text-primary-fixed/60 font-headline font-bold uppercase tracking-widest text-[9px]">Prize Liquidity</p>
-                                <h3 className="text-3xl font-headline font-black">$1.2k</h3>
+                                <p className="text-primary-fixed/60 font-bold uppercase tracking-widest text-[9px]">Prize Liquidity</p>
+                                <h3 className="text-3xl font-black">$1.2k</h3>
                             </div>
                             <div className="mt-4 flex items-center gap-3">
                                 <div className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
@@ -124,8 +124,8 @@ function Home() {
                                 <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>sensors</span>
                             </div>
                             <div className="space-y-0.5">
-                                <p className="text-slate-500 font-headline font-bold uppercase tracking-widest text-[9px]">Current Status</p>
-                                <h3 className="text-3xl font-headline font-black text-on-surface">1 Live Event</h3>
+                                <p className="text-slate-500 font-bold uppercase tracking-widest text-[9px]">Current Status</p>
+                                <h3 className="text-3xl font-black text-on-surface">1 Live Event</h3>
                             </div>
                             <div className="mt-4 flex items-center gap-2 text-primary text-[11px] font-bold">
                                 <span className="material-symbols-outlined text-xs">trending_up</span>
@@ -142,7 +142,7 @@ function Home() {
                     <div className="overflow-x-auto mobile-table-scroll">
                         <table className="w-full text-left">
                             <thead className="bg-slate-50/50">
-                                <tr className="text-slate-400 text-[9px] uppercase tracking-widest font-headline">
+                                <tr className="text-slate-400 text-[9px] uppercase tracking-widest">
                                     <th className="px-5 py-4 font-extrabold min-w-[200px]">Tournament Name</th>
                                     <th className="px-4 py-4 font-extrabold">Number of Matches</th>
                                     <th className="px-4 py-4 font-extrabold">My Score</th>
@@ -188,9 +188,9 @@ function Home() {
                         <img alt="Featured Tournament" className="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQeIjs7wqga-mU6wl2IUm_Ddfo1UL8EKKYvPqCfE7B5gRK1opF13Kc58G36epsuO2iP51XTulu42LQdq4kw0yNKEB4RnE1sncSJwhbW2wcRROPJLkAp318iu05br5IjWu0wu894XOP1aK0W2mdU41KetnbitiZN6TuTal1pnnK8sTulV5R_OgeppTX049p8-g468aZW8Br8rDMLrrw83dLf0dnoZj9hNZeJnW59l7AwTjDwfsp23sQBkyl57z91FYRl5RsjNJ3fc" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-5 flex flex-col justify-end">
                             <span className="bg-primary text-on-primary px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest self-start mb-1">Editor's Choice</span>
-                            <h3 className="text-xl font-headline font-black text-white">WORLD CUP USA 2026</h3>
-                            <p className="text-white/80 font-body text-[10px] mb-3">Registration opens in 4 days.</p>
-                            <button className="bg-white text-on-background px-4 py-1.5 rounded-full font-headline font-bold text-[10px] self-start">Join Waiting List</button>
+                            <h3 className="text-xl font-black text-white">WORLD CUP USA 2026</h3>
+                            <p className="text-white/80 text-[10px] mb-3">Registration opens in 4 days.</p>
+                            <button className="bg-white text-on-background px-4 py-1.5 rounded-full font-bold text-[10px] self-start">Join Waiting List</button>
                         </div>
                     </div>
                 </section>
@@ -200,7 +200,7 @@ function Home() {
 
                 <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
-                    <span className="text-[10px] font-headline uppercase tracking-tighter">Logout</span>
+                    <span className="text-[10px] uppercase tracking-tighter">Logout</span>
                 </button>
             </nav>
         </div>

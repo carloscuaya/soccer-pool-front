@@ -56,11 +56,6 @@ export default {
                 'on-error': '#ffffff',
                 'on-tertiary-fixed-variant': '#7f2448'
             },
-            fontFamily: {
-                "headline": ["Lexend"],
-                "body": ["Manrope"],
-                "label": ["Lexend"]
-            },
             borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
         },
     },
