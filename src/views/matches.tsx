@@ -155,7 +155,8 @@ function Matches() {
                 </div>
             </nav>
             {/* Main Content Canvas */}
-            <main className="pt-20 pb-24 px-6 max-w-2xl mx-auto">
+            <main className="pt-20 pb-24 px-6 max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex-1 w-full max-w-2xl mx-auto md:mx-0">
                 {/* Live Match Pulse Card */}
 
                 {matchesData?.map((match) => (
@@ -226,7 +227,19 @@ function Matches() {
 
                     </section>
                 ))}
+                </div>
 
+                {/* Dynamic Visual Anchor */}
+                <aside className="hidden md:block sticky top-28 w-64 lg:w-80 shrink-0">
+                    <div onClick={() => navigate("/leaderboard")} className="cursor-pointer bg-secondary-container rounded-3xl p-6 flex flex-col justify-between aspect-square relative overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(186,234,255,0.4)] hover:scale-[1.02] active:scale-95 transition-all">
+                        <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
+                        <span className="material-symbols-outlined text-on-secondary-container text-5xl">military_tech</span>
+                        <div className="relative z-10">
+                            <h5 className=" font-bold text-lg leading-tight text-on-secondary-container">Leaderboard</h5>
+                            <p className="text-sm text-on-secondary-container/70 mt-1">Check the global rankings</p>
+                        </div>
+                    </div>
+                </aside>
             </main>
             {/* BottomNavBar */}
             <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl flex justify-around items-center py-4 px-2 z-50 border-t-0 shadow-[0_-10px_30px_-15px_rgba(186,234,255,0.4)]">
