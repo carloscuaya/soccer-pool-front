@@ -11,13 +11,25 @@ interface LeaderboardEntry {
 }
 
 function Leaderboard() {
-    const navigate = useNavigate();
-    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
+    const navigate = useNavigate()
+
+    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([])
+    const [tournamentId, setTournamentId] = useState<string | null>(null)
+
+    useEffect(() => {
+        const storedTournamentId = localStorage.getItem('selectedTournament')
+        if (!storedTournamentId) {
+            sileo.error({ title: "Please select a tournament." })
+            navigate("/home")
+        } else {
+            setTournamentId(storedTournamentId)
+        }
+    }, [navigate])
 
     useEffect(() => {
         const fetchLeaderboardData = async () => {
             try {
-                const response = await axios.get("https://spb-4d1b4d1e.fastapicloud.dev/tournaments/leaderboard/69ddc556b7bada718e8d7ecf")
+                const response = await axios.get("https://spb-4d1b4d1e.fastapicloud.dev/tournaments/leaderboard/" + tournamentId)
                 // The endpoint returns an array of objects with userId, username, and score
                 const data: LeaderboardEntry[] = response.data
                 // Sort by score descending to generate position ranks
@@ -28,12 +40,14 @@ function Leaderboard() {
                 setLeaderboardData(sortedData)
             } catch (error) {
                 console.error("Error fetching leaderboard data:", error)
-                sileo.error({ title: "Failed to load leaderboard data" })
+                sileo.error({ title: "Failed to load leaderboard data." })
             }
         }
 
-        fetchLeaderboardData()
-    }, [])
+        if (tournamentId) {
+            fetchLeaderboardData()
+        }
+    }, [tournamentId])
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')

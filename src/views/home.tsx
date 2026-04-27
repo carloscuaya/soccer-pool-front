@@ -23,9 +23,19 @@ function Home() {
 
     const navigate = useNavigate()
 
-    const [username, setUsername] = useState(() => localStorage.getItem('username') || 'Guest');
+    const [username, setUsername] = useState<string>('')
 
     const [userData, setUserData] = useState<UserProfile>()
+
+    useEffect(() => {
+        const storedUsername = localStorage.getItem('username')
+        if (!storedUsername) {
+            sileo.error({ title: "Session expired. Please log in again." })
+            navigate("/login")
+        } else {
+            setUsername(storedUsername)
+        }
+    }, [navigate])
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
@@ -54,8 +64,10 @@ function Home() {
     }
 
     useEffect(() => {
-        fetchUserData()
-    }, []) // Empty dependency array means this runs once on mount
+        if (username) {
+            fetchUserData()
+        }
+    }, [username])
 
 
     return (
