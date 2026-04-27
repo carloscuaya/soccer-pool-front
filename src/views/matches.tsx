@@ -137,6 +137,9 @@ function Matches() {
                     <span className="text-xl font-black text-green-800 dark:text-green-500 tracking-tighter">Jacobo Xinto Futball Pro</span>
                 </div>
                 <div className="flex items-center gap-4">
+                    <button onClick={() => navigate("/leaderboard")} className="p-2 rounded-full hover:bg-sky-50 transition-colors">
+                        <span className="material-symbols-outlined text-green-800 dark:text-green-400">military_tech</span>
+                    </button>
                     <button className="p-2 rounded-full hover:bg-sky-50 transition-colors">
                         <span className="material-symbols-outlined text-green-800 dark:text-green-400">notifications</span>
                     </button>
@@ -223,23 +226,18 @@ function Matches() {
 
                     </section>
                 ))}
-                {/* Dynamic Visual Anchor (Bento Style) */}
-                <section className="grid grid-cols-2 gap-4 mb-10">
-                    <div onClick={() => navigate("/leaderboard")} className="cursor-pointer col-span-1 bg-secondary-container rounded-3xl p-5 flex flex-col justify-between aspect-square relative overflow-hidden hover:scale-[1.02] active:scale-95 transition-transform">
-                        <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
-                        <span className="material-symbols-outlined text-on-secondary-container text-4xl">military_tech</span>
-                        <div className="relative z-10">
-                            <h5 className=" font-bold text-sm leading-tight text-on-secondary-container">Leaderboard</h5>
-                            <p className="text-xs text-on-secondary-container/70 mt-1">Rank #12 Top Predictor</p>
-                        </div>
-                    </div>
-                </section>
+
             </main>
             {/* BottomNavBar */}
             <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl flex justify-around items-center py-4 px-2 z-50 border-t-0 shadow-[0_-10px_30px_-15px_rgba(186,234,255,0.4)]">
                 <button onClick={() => navigate("/home")} className="flex flex-col items-center gap-1 text-slate-500 font-medium">
                     <span className="material-symbols-outlined">dashboard</span>
                     <span className="text-[10px] uppercase tracking-tighter">Dash</span>
+                </button>
+
+                <button onClick={() => navigate("/leaderboard")} className="flex flex-col items-center gap-1 text-slate-500 font-medium">
+                    <span className="material-symbols-outlined">military_tech</span>
+                    <span className="text-[10px] uppercase tracking-tighter">Leaders</span>
                 </button>
 
                 <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
