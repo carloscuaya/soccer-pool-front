@@ -7,9 +7,9 @@
 }
 
 .grass-texture {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzIyOGIyMiI+PHBhdGggZD0iTTEyIDJDMTAgNSAxMCA3IDEyIDEyUzE0IDE1IDEyIDI0QzE0IDIxIDE1IDE5IDEzIDEyUzEwIDUgMTIgMnoiLz48L3N2Zz4=");
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzIyOGIyMiI+PHBhdGggZD0iTTMgMkMxIDUgMSA4IDMgMTNTNSAxNyAzIDI0QzUgMjEgNiAxOCA0IDEzUzIgNiAzIDJ6Ii8+PHBhdGggZD0iTTkgMEM3IDQgNyA4IDkgMTNTMTEgMTcgOSAyNEMxMSAyMCAxMiAxNyAxMCAxM1M4IDQgOSAweiIvPjxwYXRoIGQ9Ik0xNSAyQzEzIDUgMTMgOSAxNSAxM1MxNyAxNyAxNSAyNEMxNyAyMSAxOCAxOCAxNiAxM1MxNCA2IDE1IDJ6Ii8+PHBhdGggZD0iTTIxIDBDMTkgNCAxOSA4IDIxIDEzUzIzIDE3IDIxIDI0QzIzIDIwIDI0IDE3IDIyIDEzUzIwIDQgMjEgMHoiLz48L3N2Zz4=");
     background-repeat: repeat;
-    background-size: 60px 60px;
+    background-size: 24px 48px;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

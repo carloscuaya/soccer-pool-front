@@ -162,7 +162,7 @@ function Matches() {
                 {matchesData?.map((match) => (
                     <section className="mb-10" key={match.code}>
                         <div className="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-2 shadow-[0_32px_64px_-12px_rgba(0,77,98,0.08)]">
-                            <div className="absolute top-0 right-0 w-32 h-32 grass-texture pointer-events-none"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none"></div>
                             <div className="flex justify-between items-center mb-6">
                                 {match.userScore != null && <span className="bg-secondary-container text-primary px-3 py-1 rounded-full text-lg font-bold uppercase tracking-widest">{match.userScore}</span>}
                                 <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">{convertDate(match.matchDate)} </span>

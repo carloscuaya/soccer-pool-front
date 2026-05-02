@@ -101,14 +101,14 @@ function Home() {
                 {/* KPI Bento Grid (Horizontal Scroll on Mobile) */}
                 <div className="flex gap-4 overflow-x-auto pb-6 -mx-4 px-4 snap-x hide-scrollbar">
                     {/* Players */}
-                    <div className="min-w-[280px] bg-primary p-6 rounded-[2rem] shadow-lg grass-texture relative overflow-hidden snap-center border border-white">
+                    <div className="min-w-[280px] bg-primary p-6 rounded-[2rem] shadow-lg relative overflow-hidden snap-center border border-white">
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-secondary-container text-on-secondary-container rounded-xl flex items-center justify-center mb-4">
                                 <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>groups</span>
                             </div>
                             <div className="space-y-0.5">
                                 <p className="text-slate-500 font-bold uppercase tracking-widest text-[9px]">Active Rosters</p>
-                                <h3 className="text-3xl font-black text-on-surface">12 Players</h3>
+                                <h3 className="text-3xl font-black text-on-surface">17 Players</h3>
                             </div>
                             <div className="mt-4 flex -space-x-3">
                                 <img className="w-7 h-7 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAVi-bhHMWxcbW0u0lv-d9HfAapNgUBdotG35fqXCaJCNTwyI2Vbm8uvApY8bjofnQvvMbQr85d5-2gvv4L_ydGW6gzU_gwuVnsE3O6IFop5pIZKeKaf2gRn4uAsDGDjaeoIMOuc1Pspt-1OoMx_lH3PTZzbApLwj0iZ4EZXnlKSBDkVq5FHDXvD7Bvh3uvPnbdFrCY4zbTOYHYQtOpYDVI7Lwk9oR33CcItvKi9UAuD2h87QUObcgMn_iCQG2URLGNKe0zY4B9MM" />
@@ -125,18 +125,18 @@ function Home() {
                             </div>
                             <div className="space-y-0.5">
                                 <p className="text-primary-fixed/60 font-bold uppercase tracking-widest text-[9px]">Prize Liquidity</p>
-                                <h3 className="text-3xl font-black">$1.2k</h3>
+                                <h3 className="text-3xl font-black">$1.7k</h3>
                             </div>
                             <div className="mt-4 flex items-center gap-3">
                                 <div className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
-                                    <div className="h-full bg-white w-3/4"></div>
+                                    <div className="h-full bg-white"></div>
                                 </div>
-                                <span className="text-[10px] font-bold">75%</span>
+                                <span className="text-[10px] font-bold">100%</span>
                             </div>
                         </div>
                     </div>
                     {/* Live Events */}
-                    <div className="min-w-[280px] bg-surface-container-lowest p-6 rounded-[2rem] shadow-lg grass-texture relative overflow-hidden snap-center border border-white">
+                    <div className="min-w-[280px] bg-surface-container-lowest p-6 rounded-[2rem] shadow-lg relative overflow-hidden snap-center border border-white">
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-error-container text-error rounded-xl flex items-center justify-center mb-4">
                                 <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>sensors</span>
@@ -207,7 +207,7 @@ function Home() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-5 flex flex-col justify-end">
                             <span className="bg-primary text-on-primary px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest self-start mb-1">Editor's Choice</span>
                             <h3 className="text-xl font-black text-white">WORLD CUP USA 2026</h3>
-                            <p className="text-white/80 text-[10px] mb-3">Registration opens in 4 days.</p>
+                            <p className="text-white/80 text-[10px] mb-3">Registration opens in 24 days.</p>
                             <button className="bg-white text-on-background px-4 py-1.5 rounded-full font-bold text-[10px] self-start">Join Waiting List</button>
                         </div>
                     </div>
