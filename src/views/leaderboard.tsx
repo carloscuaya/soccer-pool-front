@@ -28,7 +28,13 @@ function Leaderboard() {
                     ...item,
                     position: index + 1
                 }))
-                setLeaderboardData(sortedData)
+                const anonymousEntry: LeaderboardEntry = {
+                    userId: 'noid',
+                    username: 'pablito',
+                    score: 0,
+                    position: sortedData.length + 1
+                }
+                setLeaderboardData([...sortedData, anonymousEntry])
             } catch (error) {
                 console.error("Error fetching leaderboard data:", error)
                 sileo.error({ title: "Failed to load leaderboard data." })
