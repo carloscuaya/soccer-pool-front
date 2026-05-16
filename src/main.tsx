@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { Toaster } from "sileo"
 import "sileo/styles.css"
+import '@i18n/index'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -25,7 +25,8 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@views/*": ["./src/views/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@i18n/*": ["./src/i18n/*"]
     }
   },
   "include": ["src"]

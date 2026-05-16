@@ -2,6 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
+import { useTranslation } from 'react-i18next'
+import i18next from '@i18n/index'
 import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
 import { format, formatInTimeZone } from 'date-fns-tz'
 import { es } from "date-fns/locale/es"
@@ -22,29 +24,36 @@ export interface Match {
 
 function Matches() {
 
+    const { t } = useTranslation()
     const navigate = useNavigate()
 
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
     const [savingMatches, setSavingMatches] = useState<Set<string>>(new Set())
     const [savedMatches, setSavedMatches] = useState<Set<string>>(new Set())
-    const username = useRequiredLocalStorage('username', 'Session expired. Please log in again.', '/login')
+    const username = useRequiredLocalStorage('username', t('common.sessionExpired'), '/login')
     const [selectedTournament] = useState<string | null>(() => localStorage.getItem('selectedTournament'))
+
+    const currentLang = i18next.language
+
+    const toggleLanguage = () => {
+        const next = currentLang === 'es' ? 'en' : 'es'
+        i18next.changeLanguage(next)
+        localStorage.setItem('lang', next)
+    }
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
         localStorage.removeItem('username')
         localStorage.removeItem('selectedTournament')
-        sileo.success({ title: "You have been logged out" })
+        sileo.success({ title: t('common.loggedOut') })
         navigate("/login")
     }
 
     const convertDate = (dateString: string) => {
-        // console.log("dateString: ", dateString)
         const timeZone = "America/Mexico_City"
         const pattern = 'yyyy-MM-dd HH:mm:ssXXX'
         const mexicoTime = formatInTimeZone(dateString, timeZone, pattern)
-        // console.log("mexicoTime: ", mexicoTime)
         const spanishFormat = format(mexicoTime, "d 'de' MMMM, yyyy HH:mm", { locale: es })
         return spanishFormat
     }
@@ -62,7 +71,7 @@ function Matches() {
         if (!match) return
 
         if (match.scoreLocalTeam === null || match.scoreVisitTeam === null) {
-            sileo.warning({ title: "Please enter both scores before submitting." })
+            sileo.warning({ title: t('matches.warnScores') })
             return
         }
 
@@ -75,7 +84,7 @@ function Matches() {
                 scoreVisitTeam: match.scoreVisitTeam
             })
             setSavedMatches(prev => new Set(prev).add(matchId))
-            sileo.success({ title: "Forecast submitted successfully!" })
+            sileo.success({ title: t('matches.successForecast') })
             setTimeout(() => {
                 setSavedMatches(prev => {
                     const next = new Set(prev)
@@ -85,7 +94,7 @@ function Matches() {
             }, 3000)
         } catch (error) {
             console.error('Error submitting forecast:', error)
-            sileo.error({ title: "Error submitting forecast. Please try again." })
+            sileo.error({ title: t('matches.errForecast') })
         } finally {
             setSavingMatches(prev => {
                 const next = new Set(prev)
@@ -127,7 +136,7 @@ function Matches() {
             {/* TopNavBar */}
             <nav className="fixed top-0 w-full flex justify-between items-center px-6 py-3 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl z-50 no-border bg-slate-100/50 dark:bg-slate-900/50 shadow-[0_20px_40px_-15px_rgba(186,234,255,0.4)]">
                 <div className="cursor-pointer flex items-center gap-2" onClick={() => navigate("/home")}>
-                    <span className="text-xl font-black text-green-800 dark:text-green-500 tracking-tighter">Jacobo Xinto Futball Pro</span>
+                    <span className="text-xl font-black text-green-800 dark:text-green-500 tracking-tighter">{t('common.appName')}</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <button onClick={() => navigate("/leaderboard")} className="p-2 rounded-full hover:bg-sky-50 transition-colors">
@@ -136,10 +145,13 @@ function Matches() {
                     <button className="p-2 rounded-full hover:bg-sky-50 transition-colors">
                         <span className="material-symbols-outlined text-green-800 dark:text-green-400">notifications</span>
                     </button>
+                    <button onClick={toggleLanguage} className="text-xs font-bold text-secondary border border-secondary/30 rounded-full px-3 py-1 hover:bg-secondary/10 transition-colors">
+                        {currentLang === 'es' ? 'EN' : 'ES'}
+                    </button>
                     <div className="hidden md:block">
                         <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
                             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
-                            <span className="text-[10px] uppercase tracking-tighter">Logout</span>
+                            <span className="text-[10px] uppercase tracking-tighter">{t('common.logout')}</span>
                         </button>
                     </div>
                     <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-container border-2 border-secondary-container">
@@ -150,7 +162,6 @@ function Matches() {
             {/* Main Content Canvas */}
             <main className="pt-20 pb-24 px-6 max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-start">
                 <div className="flex-1 w-full max-w-2xl mx-auto md:mx-0">
-                {/* Live Match Pulse Card */}
 
                 {matchesData?.map((match) => (
                     <section className="mb-10" key={match.code}>
@@ -180,16 +191,15 @@ function Matches() {
                             </div>
                             {/* Forecast Input Section */}
                             {match.status === 'OPEN' && (
-
                                 <div className="bg-secondary-container/30 border-2 border-dashed border-secondary-container/50 rounded-3xl p-6 relative">
                                     <div className="flex items-center justify-center gap-8 mb-6">
                                         <div className="text-center">
-                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">{t('matches.local')}</span>
                                             <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreLocalTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreLocalTeam')} />
                                         </div>
                                         <span className=" font-black text-2xl text-secondary mt-6">-</span>
                                         <div className="text-center">
-                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">{t('matches.visit')}</span>
                                             <input className="w-16 h-16 bg-white border-none rounded-2xl text-center font-black text-2xl focus:ring-2 focus:ring-primary shadow-sm" placeholder="0" type="number" value={match.scoreVisitTeam ?? ''} onChange={(e) => handleChange(match.code, e.target.value, 'scoreVisitTeam')} />
                                         </div>
                                     </div>
@@ -205,14 +215,14 @@ function Matches() {
                                         {savingMatches.has(match._id) ? (
                                             <>
                                                 <span className="animate-spin-y text-lg">⚽</span>
-                                                Saving...
+                                                {t('matches.saving')}
                                             </>
                                         ) : savedMatches.has(match._id) ? (
                                             <>
                                                 <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                                                Saved!
+                                                {t('matches.saved')}
                                             </>
-                                        ) : 'Submit'}
+                                        ) : t('matches.submit')}
                                     </button>
                                 </div>
                             )}
@@ -220,12 +230,12 @@ function Matches() {
                                 <div className="bg-secondary-container/30 border border-dashed border-secondary-container/50 rounded-3xl p-3 relative">
                                     <div className="flex items-center justify-center gap-8">
                                         <div className="text-center">
-                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Local</span>
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">{t('matches.local')}</span>
                                             <span className=" font-black text-4xl text-secondary">{match.scoreLocalTeam ?? ''}</span>
                                         </div>
                                         <span className=" font-black text-3xl text-secondary mt-5">-</span>
                                         <div className="text-center">
-                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">Visit</span>
+                                            <span className="block text-[10px] uppercase font-bold text-secondary mb-2">{t('matches.visit')}</span>
                                             <span className=" font-black text-4xl text-secondary">{match.scoreVisitTeam ?? ''}</span>
                                         </div>
                                     </div>
@@ -243,8 +253,8 @@ function Matches() {
                         <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent"></div>
                         <span className="material-symbols-outlined text-on-secondary-container text-5xl">military_tech</span>
                         <div className="relative z-10">
-                            <h5 className=" font-bold text-lg leading-tight text-on-secondary-container">Leaderboard</h5>
-                            <p className="text-sm text-on-secondary-container/70 mt-1">Check the global rankings</p>
+                            <h5 className=" font-bold text-lg leading-tight text-on-secondary-container">{t('matches.leaderboardTitle')}</h5>
+                            <p className="text-sm text-on-secondary-container/70 mt-1">{t('matches.leaderboardDesc')}</p>
                         </div>
                     </div>
                 </aside>
@@ -253,17 +263,17 @@ function Matches() {
             <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl flex justify-around items-center py-4 px-2 z-50 border-t-0 shadow-[0_-10px_30px_-15px_rgba(186,234,255,0.4)]">
                 <button onClick={() => navigate("/home")} className="flex flex-col items-center gap-1 text-slate-500 font-medium">
                     <span className="material-symbols-outlined">dashboard</span>
-                    <span className="text-[10px] uppercase tracking-tighter">Dash</span>
+                    <span className="text-[10px] uppercase tracking-tighter">{t('common.dashboard')}</span>
                 </button>
 
                 <button onClick={() => navigate("/leaderboard")} className="flex flex-col items-center gap-1 text-slate-500 font-medium">
                     <span className="material-symbols-outlined">military_tech</span>
-                    <span className="text-[10px] uppercase tracking-tighter">Leaders</span>
+                    <span className="text-[10px] uppercase tracking-tighter">{t('common.leaders')}</span>
                 </button>
 
                 <button className="flex flex-col items-center gap-1 text-green-700 font-bold" onClick={() => handleLogout()}>
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>logout</span>
-                    <span className="text-[10px] uppercase tracking-tighter">Logout</span>
+                    <span className="text-[10px] uppercase tracking-tighter">{t('common.logout')}</span>
                 </button>
             </nav>
 
@@ -272,5 +282,3 @@ function Matches() {
 }
 
 export default Matches
-
-

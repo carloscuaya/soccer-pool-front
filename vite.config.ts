@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       '@views': path.resolve(__dirname, 'src/views'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
+      '@i18n': path.resolve(__dirname, 'src/i18n'),
     }
   }
 })
