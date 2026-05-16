@@ -1,10 +1,10 @@
 // import LandingPage from "@pages/Landing";
 import { createHashRouter } from "react-router";
-import Login from "../views/login";
-import Home from "../views/home";
-import Matches from "../views/matches";
-import Leaderboard from "../views/leaderboard";
-import UpdatePassword from "../views/update-password";
+import Login from "@views/login";
+import Home from "@views/home";
+import Matches from "@views/matches";
+import Leaderboard from "@views/leaderboard";
+import UpdatePassword from "@views/update-password";
 
 // Here we add main routes and if you want to have nested routes you must use children: [] as done in /app/*
 

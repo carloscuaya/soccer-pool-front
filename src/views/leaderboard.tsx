@@ -2,7 +2,7 @@ import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import useRequiredLocalStorage from '../hooks/useRequiredLocalStorage'
+import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
 
 interface LeaderboardEntry {
     userId: string
