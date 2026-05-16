@@ -1,26 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
+import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
 
 function UpdatePassword() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [username, setUsername] = useState<string | null>(null)
+    const username = useRequiredLocalStorage('username', 'Session expired. Please log in again.', '/login')
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        const storedUsername = localStorage.getItem('username')
-        if (!storedUsername) {
-            sileo.error({ title: "Session expired. Please log in again." })
-            navigate("/login")
-        } else {
-            setUsername(storedUsername)
-        }
-    }, [navigate])
 
     const handleUpdate = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -52,7 +43,7 @@ function UpdatePassword() {
             sileo.success({ title: "Password updated successfully!" })
             navigate("/home")
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Update Failed:', error)
             sileo.error({ title: "Failed to update password. Please try again." })
         } finally {

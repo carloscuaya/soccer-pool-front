@@ -47,9 +47,9 @@ function Login() {
                 sileo.success({ title: "Welcome " + username })
             }
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Login Failed:', error)
-            if (error.response && error.response.status === 401) {
+            if (axios.isAxiosError(error) && error.response?.status === 401) {
                 sileo.warning({ title: "Invalid credentials" })
             } else {
                 sileo.error({ title: "Error connecting to the server" })
