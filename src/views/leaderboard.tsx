@@ -2,6 +2,7 @@ import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import useRequiredLocalStorage from '../hooks/useRequiredLocalStorage'
 
 interface LeaderboardEntry {
     userId: string
@@ -14,17 +15,7 @@ function Leaderboard() {
     const navigate = useNavigate()
 
     const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([])
-    const [tournamentId, setTournamentId] = useState<string | null>(null)
-
-    useEffect(() => {
-        const storedTournamentId = localStorage.getItem('selectedTournament')
-        if (!storedTournamentId) {
-            sileo.error({ title: "Please select a tournament." })
-            navigate("/home")
-        } else {
-            setTournamentId(storedTournamentId)
-        }
-    }, [navigate])
+    const tournamentId = useRequiredLocalStorage('selectedTournament', 'Please select a tournament.', '/home')
 
     useEffect(() => {
         const fetchLeaderboardData = async () => {

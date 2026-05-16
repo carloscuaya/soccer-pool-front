@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
+import useRequiredLocalStorage from '../hooks/useRequiredLocalStorage'
 
 export interface Tournament {
     _id: string
@@ -23,26 +24,15 @@ function Home() {
 
     const navigate = useNavigate()
 
-    const [username, setUsername] = useState<string>('')
+    const username = useRequiredLocalStorage('username', 'Session expired. Please log in again.', '/login')
 
     const [userData, setUserData] = useState<UserProfile>()
-
-    useEffect(() => {
-        const storedUsername = localStorage.getItem('username')
-        if (!storedUsername) {
-            sileo.error({ title: "Session expired. Please log in again." })
-            navigate("/login")
-        } else {
-            setUsername(storedUsername)
-        }
-    }, [navigate])
 
     const handleLogout = () => {
         localStorage.removeItem('access_token')
         localStorage.removeItem('username')
         localStorage.removeItem('selectedTournament')
         sileo.success({ title: "You have been logged out" })
-        setUsername('')
         navigate("/login")
     }
 
@@ -51,22 +41,19 @@ function Home() {
         navigate("/matches")
     }
 
-    // Define an async function to fetch data
-    const fetchUserData = async () => {
-        console.log("fetchUserData")
-        try {
-            const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users/' + username)
-            console.log("userData: ", response.data)
-            setUserData(response.data) // Access results via .data property
-        } catch (error) {
-            console.error('Error fetching data:', error)
-        }
-    }
-
     useEffect(() => {
-        if (username) {
-            fetchUserData()
+        if (!username) return
+
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users/' + username)
+                setUserData(response.data)
+            } catch (error) {
+                console.error('Error fetching data:', error)
+            }
         }
+
+        fetchUserData()
     }, [username])
 
 
