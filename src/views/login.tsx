@@ -142,8 +142,17 @@ function Login() {
                                 <div className="pt-4">
                                     <button className="group relative w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-extrabold text-lg shadow-[0_20px_40px_-10px_rgba(13,99,27,0.3)] hover:shadow-[0_25px_50px_-12px_rgba(13,99,27,0.4)] active:scale-[0.98] transition-all overflow-hidden" type="submit">
                                         <span className="relative z-10 flex items-center justify-center gap-2">
-                                            {loading ? 'Logging in...' : 'Login'}
-                                            <span className="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+                                            {loading ? (
+                                                <>
+                                                    <span className="animate-spin-y text-xl">⚽</span>
+                                                    Logging in...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Login
+                                                    <span className="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+                                                </>
+                                            )}
                                         </span>
                                         <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                     </button>

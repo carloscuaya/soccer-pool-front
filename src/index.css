@@ -49,3 +49,13 @@
 [data-sileo-viewport] {
     z-index: 9999 !important;
 }
+
+@keyframes spin-y {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+.animate-spin-y {
+    animation: spin-y 0.8s linear infinite;
+    display: inline-block;
+}
