@@ -26,6 +26,8 @@ function Matches() {
 
     const [matchesData, setMatchesData] = useState<Match[]>()
     const [tournamentMatchesData, setTournamentMatchesData] = useState<Match[]>()
+    const [savingMatches, setSavingMatches] = useState<Set<string>>(new Set())
+    const [savedMatches, setSavedMatches] = useState<Set<string>>(new Set())
     const username = useRequiredLocalStorage('username', 'Session expired. Please log in again.', '/login')
     const [selectedTournament] = useState<string | null>(() => localStorage.getItem('selectedTournament'))
 
@@ -64,18 +66,32 @@ function Matches() {
             return
         }
 
+        setSavingMatches(prev => new Set(prev).add(matchId))
+
         try {
-            // Replace with your actual endpoint URL and adjust the payload if needed
-            const response = await axios.put(`https://spb-4d1b4d1e.fastapicloud.dev/matches`, {
+            await axios.put(`https://spb-4d1b4d1e.fastapicloud.dev/matches`, {
                 matchId: match._id,
                 scoreLocalTeam: match.scoreLocalTeam,
                 scoreVisitTeam: match.scoreVisitTeam
             })
-            console.log("Forecast submitted successfully:", response.data)
+            setSavedMatches(prev => new Set(prev).add(matchId))
             sileo.success({ title: "Forecast submitted successfully!" })
+            setTimeout(() => {
+                setSavedMatches(prev => {
+                    const next = new Set(prev)
+                    next.delete(matchId)
+                    return next
+                })
+            }, 3000)
         } catch (error) {
             console.error('Error submitting forecast:', error)
             sileo.error({ title: "Error submitting forecast. Please try again." })
+        } finally {
+            setSavingMatches(prev => {
+                const next = new Set(prev)
+                next.delete(matchId)
+                return next
+            })
         }
     }
 
@@ -179,9 +195,24 @@ function Matches() {
                                     </div>
                                     <button
                                         onClick={() => submitForecast(match._id)}
-                                        className="w-full bg-primary text-on-primary font-bold py-4 rounded-full shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container transition-all active:scale-95"
+                                        disabled={savingMatches.has(match._id) || savedMatches.has(match._id)}
+                                        className={`w-full font-bold py-4 rounded-full transition-all active:scale-95 flex items-center justify-center gap-2 disabled:cursor-not-allowed ${
+                                            savedMatches.has(match._id)
+                                                ? 'bg-green-500 text-white shadow-[0_8px_24px_rgba(34,197,94,0.3)]'
+                                                : 'bg-primary text-on-primary shadow-[0_8px_24px_rgba(13,99,27,0.2)] hover:bg-primary-container'
+                                        }`}
                                     >
-                                        Submit
+                                        {savingMatches.has(match._id) ? (
+                                            <>
+                                                <span className="animate-spin-y text-lg">⚽</span>
+                                                Saving...
+                                            </>
+                                        ) : savedMatches.has(match._id) ? (
+                                            <>
+                                                <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                                Saved!
+                                            </>
+                                        ) : 'Submit'}
                                     </button>
                                 </div>
                             )}
