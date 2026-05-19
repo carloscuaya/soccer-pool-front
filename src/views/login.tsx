@@ -4,7 +4,7 @@ import { login as apiLogin, getUser } from '@api/users'
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useTranslation } from 'react-i18next'
-import i18next from '@i18n/index'
+import useLanguageToggle from '@hooks/useLanguageToggle'
 
 function Login() {
 
@@ -15,14 +15,7 @@ function Login() {
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
-
-    const currentLang = i18next.language
-
-    const toggleLanguage = () => {
-        const next = currentLang === 'es' ? 'en' : 'es'
-        i18next.changeLanguage(next)
-        localStorage.setItem('lang', next)
-    }
+    const { currentLang, toggleLanguage } = useLanguageToggle()
 
     const handleLogin = async (e: { preventDefault: () => void }) => {
         e.preventDefault()

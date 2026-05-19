@@ -3,8 +3,8 @@ import { updatePassword } from '@api/users'
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useTranslation } from 'react-i18next'
-import i18next from '@i18n/index'
 import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
+import useLanguageToggle from '@hooks/useLanguageToggle'
 
 function UpdatePassword() {
     const { t } = useTranslation()
@@ -15,16 +15,9 @@ function UpdatePassword() {
     const username = useRequiredLocalStorage('username', t('common.sessionExpired'), '/login')
 
     const navigate = useNavigate()
+    const { currentLang, toggleLanguage } = useLanguageToggle()
 
-    const currentLang = i18next.language
-
-    const toggleLanguage = () => {
-        const next = currentLang === 'es' ? 'en' : 'es'
-        i18next.changeLanguage(next)
-        localStorage.setItem('lang', next)
-    }
-
-    const handleUpdate = async (e: React.FormEvent) => {
+    const handleUpdate = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
 
         if (!password || !confirmPassword) {
