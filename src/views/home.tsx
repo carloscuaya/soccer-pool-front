@@ -1,25 +1,10 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
 import { useTranslation } from 'react-i18next'
 import i18next from '@i18n/index'
 import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
-
-export interface Tournament {
-    _id: string
-    name: string
-    matches_number: number
-    status: string
-    score: number | null
-}
-
-export interface UserProfile {
-    _id: string
-    username: string
-    fullname: string
-    tournaments: Tournament[]
-}
+import { getUser, type UserProfile } from '@api/users'
 
 
 function Home() {
@@ -57,7 +42,7 @@ function Home() {
 
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('https://spb-4d1b4d1e.fastapicloud.dev/users/' + username)
+                const response = await getUser(username)
                 setUserData(response.data)
             } catch (error) {
                 console.error('Error fetching data:', error)

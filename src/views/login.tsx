@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { isAxiosError } from 'axios'
+import { login as apiLogin, getUser } from '@api/users'
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useTranslation } from 'react-i18next'
@@ -34,16 +35,12 @@ function Login() {
         }
 
         try {
-            const response = await axios.post(
-                'https://spb-4d1b4d1e.fastapicloud.dev/login',
-                { username, password },
-                { headers: { 'Content-Type': 'application/json' } }
-            )
+            const response = await apiLogin(username, password)
 
             localStorage.setItem('access_token', response.data.access_token)
             localStorage.setItem('username', username)
 
-            const userResponse = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/users/${username}`)
+            const userResponse = await getUser(username)
 
             if (userResponse.data && userResponse.data.hasUpdatedPassword === false) {
                 navigate("/update-password")
@@ -55,7 +52,7 @@ function Login() {
 
         } catch (error: unknown) {
             console.error('Login Failed:', error)
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
+            if (isAxiosError(error) && error.response?.status === 401) {
                 sileo.warning({ title: t('login.errInvalidCredentials') })
             } else {
                 sileo.error({ title: t('login.errServer') })

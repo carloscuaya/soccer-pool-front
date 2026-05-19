@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
@@ -7,20 +6,8 @@ import i18next from '@i18n/index'
 import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
 import { format, formatInTimeZone } from 'date-fns-tz'
 import { es } from "date-fns/locale/es"
-
-export interface Match {
-    _id: string
-    code: string
-    localTeam: string
-    scoreLocalTeam: number | null
-    logoPathLocalTeam: string
-    visitTeam: string
-    scoreVisitTeam: number | null
-    logoPathVisitTeam: string
-    matchDate: string
-    status: string
-    userScore: number | null
-}
+import { getMatches, updateForecast, type Match } from '@api/matches'
+import { getTournamentMatches } from '@api/tournaments'
 
 function Matches() {
 
@@ -78,11 +65,7 @@ function Matches() {
         setSavingMatches(prev => new Set(prev).add(matchId))
 
         try {
-            await axios.put(`https://spb-4d1b4d1e.fastapicloud.dev/matches`, {
-                matchId: match._id,
-                scoreLocalTeam: match.scoreLocalTeam,
-                scoreVisitTeam: match.scoreVisitTeam
-            })
+            await updateForecast(match._id, match.scoreLocalTeam, match.scoreVisitTeam)
             setSavedMatches(prev => new Set(prev).add(matchId))
             sileo.success({ title: t('matches.successForecast') })
             setTimeout(() => {
@@ -109,7 +92,7 @@ function Matches() {
 
         const fetchTournamentMatchesData = async () => {
             try {
-                const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/tournaments/matches/?tournament_id=${selectedTournament}`)
+                const response = await getTournamentMatches(selectedTournament)
                 setTournamentMatchesData(response.data)
             } catch (error) {
                 console.error('Error fetching tournament matches:', error)
@@ -118,7 +101,7 @@ function Matches() {
 
         const fetchMatchesData = async () => {
             try {
-                const response = await axios.get(`https://spb-4d1b4d1e.fastapicloud.dev/matches/${username}/${selectedTournament}`)
+                const response = await getMatches(username, selectedTournament)
                 setMatchesData(response.data)
             } catch (error) {
                 console.error('Error fetching matches:', error)

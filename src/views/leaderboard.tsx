@@ -1,18 +1,10 @@
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { useTranslation } from 'react-i18next'
 import i18next from '@i18n/index'
 import useRequiredLocalStorage from '@hooks/useRequiredLocalStorage'
-
-interface LeaderboardEntry {
-    userId: string
-    username: string
-    score: number
-    position?: number
-    slow_payer?: boolean
-}
+import { getLeaderboard, type LeaderboardEntry } from '@api/tournaments'
 
 function Leaderboard() {
     const { t } = useTranslation()
@@ -30,9 +22,9 @@ function Leaderboard() {
     }
 
     useEffect(() => {
-        const fetchLeaderboardData = async () => {
+        const fetchLeaderboardData = async (id: string) => {
             try {
-                const response = await axios.get("https://spb-4d1b4d1e.fastapicloud.dev/tournaments/leaderboard/" + tournamentId)
+                const response = await getLeaderboard(id)
                 const data: LeaderboardEntry[] = response.data
                 const sortedData = data.sort((a, b) => b.score - a.score).map((item, index) => ({
                     ...item,
@@ -53,7 +45,7 @@ function Leaderboard() {
         }
 
         if (tournamentId) {
-            fetchLeaderboardData()
+            fetchLeaderboardData(tournamentId)
         }
     }, [tournamentId, t])
 

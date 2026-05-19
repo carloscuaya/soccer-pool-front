@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { updatePassword } from '@api/users'
 import { useNavigate } from "react-router"
 import { sileo } from "sileo"
 import { useTranslation } from 'react-i18next'
@@ -45,11 +45,7 @@ function UpdatePassword() {
         setLoading(true)
 
         try {
-            await axios.put(
-                'https://spb-4d1b4d1e.fastapicloud.dev/users/password',
-                { "username": username, "newPassword": password },
-                { headers: { 'Content-Type': 'application/json' } }
-            )
+            await updatePassword(username!, password)
 
             sileo.success({ title: t('updatePassword.successUpdated') })
             navigate("/home")
