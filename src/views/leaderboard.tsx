@@ -11,6 +11,7 @@ interface LeaderboardEntry {
     username: string
     score: number
     position?: number
+    slow_payer?: boolean
 }
 
 function Leaderboard() {
@@ -108,6 +109,7 @@ function Leaderboard() {
                                     <th className="px-5 py-4 font-extrabold w-24">{t('leaderboard.colPosition')}</th>
                                     <th className="px-4 py-4 font-extrabold">{t('leaderboard.colUsername')}</th>
                                     <th className="px-4 py-4 font-extrabold text-right">{t('leaderboard.colScore')}</th>
+                                    <th className="px-4 py-4 font-extrabold text-center">{t('leaderboard.colSlowPayer')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">
@@ -145,6 +147,20 @@ function Leaderboard() {
                                             </td>
                                             <td className="px-4 py-5 font-black text-primary text-lg text-right flex items-center justify-end gap-2">
                                                 <span>{user.score}</span>
+                                            </td>
+                                            <td className="px-4 py-5 text-center">
+                                                {user.slow_payer && (
+                                                    <div className="relative group inline-flex">
+                                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-error text-[8px] font-bold uppercase tracking-wider cursor-help">
+                                                            <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
+                                                            {t('leaderboard.colSlowPayer')}
+                                                        </span>
+                                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-800 text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
+                                                            {t('leaderboard.slowPayerTooltip')}
+                                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></div>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </td>
                                         </tr>
                                     );

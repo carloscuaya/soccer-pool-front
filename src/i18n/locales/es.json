@@ -74,6 +74,8 @@
     "colPosition": "Posición",
     "colUsername": "Usuario",
     "colScore": "Puntaje",
+    "colSlowPayer": "Moroso",
+    "slowPayerTooltip": "ya paga morosooooo!!!",
     "backToMatches": "Volver a partidos",
     "tooltipFirst": "¡Eres un verdadero black!!",
     "tooltipLast": "¡Ah! ¡Cómo puedes ser tan malo!!",
