@@ -76,9 +76,10 @@
     "colScore": "Puntaje",
     "colSlowPayer": "Moroso",
     "slowPayerTooltip": "ya paga morosooooo!!!",
+    "goodPayerBadge": "Pagador cumplido, gracias!!!",
     "backToMatches": "Volver a partidos",
     "tooltipFirst": "¡Eres un verdadero black!!",
-    "tooltipLast": "¡Ah! ¡Cómo puedes ser tan malo!!",
+    "tooltipLast": "¡Ah! ¡Cómo eressss pendejoooo!!",
     "errLoad": "Error al cargar los datos de clasificación."
   },
   "updatePassword": {

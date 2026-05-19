@@ -42,6 +42,7 @@ function Leaderboard() {
                     userId: 'noid',
                     username: 'pablito',
                     score: 0,
+                    slow_payer: false,
                     position: sortedData.length + 1
                 }
                 setLeaderboardData([...sortedData, anonymousEntry])
@@ -149,7 +150,7 @@ function Leaderboard() {
                                                 <span>{user.score}</span>
                                             </td>
                                             <td className="px-4 py-5 text-center">
-                                                {user.slow_payer && (
+                                                {user.slow_payer ? (
                                                     <div className="relative group inline-flex">
                                                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-error text-[8px] font-bold uppercase tracking-wider cursor-help">
                                                             <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
@@ -160,6 +161,11 @@ function Leaderboard() {
                                                             <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></div>
                                                         </div>
                                                     </div>
+                                                ) : user.slow_payer === false && (
+                                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[8px] font-bold uppercase tracking-wider">
+                                                        <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                                        {t('leaderboard.goodPayerBadge')}
+                                                    </span>
                                                 )}
                                             </td>
                                         </tr>
