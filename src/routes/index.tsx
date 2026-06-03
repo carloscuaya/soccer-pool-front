@@ -4,6 +4,9 @@ import Home from "@views/home";
 import Matches from "@views/matches";
 import Leaderboard from "@views/leaderboard";
 import UpdatePassword from "@views/update-password";
+import TournamentsAdmin from "@views/admin/tournaments-admin";
+import CreateTournament from "@views/admin/create-tournament";
+import UpdateTournament from "@views/admin/update-tournament";
 import AuthenticatedLayout from "@layouts/AuthenticatedLayout";
 
 const router = createHashRouter([
@@ -16,6 +19,9 @@ const router = createHashRouter([
             { path: "/home", Component: Home },
             { path: "/matches", Component: Matches },
             { path: "/leaderboard", Component: Leaderboard },
+            { path: "/tournaments-admin", Component: TournamentsAdmin },
+            { path: "/tournaments-admin/create", Component: CreateTournament },
+            { path: "/tournaments-admin/:id/edit", Component: UpdateTournament },
         ]
     }
 ])

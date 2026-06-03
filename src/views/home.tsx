@@ -34,6 +34,7 @@ function Home() {
 
 
     return (
+        <>
         <main className="pt-20 pb-24 px-4 min-h-screen">
             {/* Header Section */}
             <header className="mb-8">
@@ -154,6 +155,19 @@ function Home() {
                 </div>
             </section>
         </main>
+
+        {/* Hisoka-only FAB to create a tournament */}
+        {username === 'hisoka' && (
+            <button
+                onClick={() => navigate('/tournaments-admin')}
+                className="fixed bottom-24 md:bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary flex items-center justify-center z-50 transition-transform active:scale-95"
+                style={{ boxShadow: '0 8px 32px 0 rgba(0, 77, 98, 0.12)' }}
+                aria-label="Create tournament"
+            >
+                <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>add</span>
+            </button>
+        )}
+        </>
     )
 }
 

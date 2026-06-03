@@ -82,6 +82,31 @@
     "tooltipLast": "¡Ah! ¡Cómo eressss pendejoooo!!",
     "errLoad": "Error al cargar los datos de clasificación."
   },
+  "tournamentsAdmin": {
+    "title": "TORNEOS",
+    "subtitle": "Control total sobre llaves y configuración de torneos.",
+    "emptyState": "Aún no hay torneos. Toca + para crear uno.",
+    "sheetTitleCreate": "Nuevo torneo",
+    "sheetTitleEdit": "Editar torneo",
+    "updateCta": "Guardar cambios",
+    "updating": "Guardando...",
+    "updateSuccess": "¡Torneo actualizado con éxito!",
+    "updateError": "Error al actualizar el torneo. Por favor intenta de nuevo."
+  },
+  "createTournament": {
+    "title": "NUEVO TORNEO",
+    "subtitle": "Configura una nueva llave y da vida a la arena.",
+    "labelName": "Nombre del torneo",
+    "labelMatches": "Número de partidos",
+    "labelStatus": "Estado",
+    "statusUpcoming": "Próximamente",
+    "statusActive": "Activo",
+    "statusFinished": "Finalizado",
+    "cta": "Crear torneo",
+    "creating": "Creando...",
+    "success": "¡Torneo creado con éxito!",
+    "error": "Error al crear el torneo. Por favor intenta de nuevo."
+  },
   "updatePassword": {
     "title": "Actualizar contraseña",
     "subtitle": "Por tu seguridad, crea una nueva contraseña antes de continuar a la arena.",

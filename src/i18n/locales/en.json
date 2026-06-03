@@ -82,6 +82,31 @@
     "tooltipLast": "Ah! How could you be so bad!!",
     "errLoad": "Failed to load leaderboard data."
   },
+  "tournamentsAdmin": {
+    "title": "TOURNAMENTS",
+    "subtitle": "Full control over brackets and tournament setup.",
+    "emptyState": "No tournaments yet. Tap + to create one.",
+    "sheetTitleCreate": "New Tournament",
+    "sheetTitleEdit": "Edit Tournament",
+    "updateCta": "Save Changes",
+    "updating": "Saving...",
+    "updateSuccess": "Tournament updated successfully!",
+    "updateError": "Error updating tournament. Please try again."
+  },
+  "createTournament": {
+    "title": "NEW TOURNAMENT",
+    "subtitle": "Set up a new bracket and bring the arena to life.",
+    "labelName": "Tournament Name",
+    "labelMatches": "Number of Matches",
+    "labelStatus": "Status",
+    "statusUpcoming": "Upcoming",
+    "statusActive": "Active",
+    "statusFinished": "Finished",
+    "cta": "Create Tournament",
+    "creating": "Creating...",
+    "success": "Tournament created successfully!",
+    "error": "Error creating tournament. Please try again."
+  },
   "updatePassword": {
     "title": "Update Password",
     "subtitle": "For your security, please create a new password before continuing to the arena.",
